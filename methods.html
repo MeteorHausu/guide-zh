@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Basic -->
+    <title>Method | Meteor 指南 中译本</title>
+    <meta name="description" content="如何使用 Method, Meteor 通过使用 Method 将数据变化写入数据库">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="../images/favicon.png" sizes="16x16 32x32 64x64">
+
+    <!-- Social -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://guide-zh.ourmeteor.com">
+    <meta property="og:title" content="Method | Meteor 指南 中译本">
+    <meta property="og:description" content="如何使用 Method, Meteor 通过使用 Method 将数据变化写入数据库">
+    <meta property="og:image" content="">
+    <meta name="twitter:card" content="summary_image_large">
+    <meta name="twitter:site" content="@meteor">
+    <meta name="twitter:title" content="Method | Meteor 指南 中译本">
+    <meta name="twitter:description" content="如何使用 Method, Meteor 通过使用 Method 将数据变化写入数据库">
+    <meta name="twitter:image" content="">
+
+    <!-- Misc -->
+    <meta name="google-site-verification" content="" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body class="">
+    
+
+<div class="sidebar">
+  <div class="panel">
+    <div class="panel-item logo">
+      <a href="http://www.meteor.com/developers" title="Meteor Developers" target=_new >
+        <img src="../images/icon-white.svg" alt="Meteor Developers">
+        <span>Meteor Developers</span>
+      </a>
+    </div>
+    
+      <div class="panel-item "">
+        <a class="" href="http://www.meteor.com/tutorials" target=_new >
+          <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><g fill="#112B49"><circle cx="80.001" cy="80" r="3"/><path d="M75.73 85.723c.193-.183.316-.437.316-.723 0-.553-.447-1-1-1-.278 0-.528.114-.71.297l-.004-.004-50.9 50.875c-.18.18-.29.43-.29.707-.002.553.445 1 .998 1 .276 0 .526-.112.708-.293l50.883-50.86zM84.235 74.4c-.18.183-.292.433-.292.71 0 .552.446 1 1 1 .275 0 .525-.113.707-.294l50.87-50.89c.204-.184.34-.442.34-.74 0-.552-.448-1-1-1-.276 0-.526.113-.707.294l-.01-.01L84.236 74.4zM136.583 135.184L85.65 84.23c-.182-.18-.432-.293-.708-.293-.552 0-1 .447-1 1 0 .278.114.528.297.71l50.927 50.95c.18.18.43.293.708.293.553 0 1-.447 1-1 0-.276-.11-.525-.292-.706zM111.19 152.602l-.003-.005-.002-.004-27.552-66.507h-.002c-.15-.362-.505-.617-.922-.617-.552 0-1 .446-1 1 0 .135.028.263.077.38v.002l.005.012 27.552 66.504c.15.362.507.617.924.617.553 0 1-.447 1-1 0-.136-.03-.265-.077-.383zM48.873 7.384L76.435 73.93h.002c.15.362.505.617.922.617.552 0 1-.447 1-1 0-.136-.03-.264-.078-.382h.003L50.72 6.616c-.15-.362-.506-.617-.923-.617-.552 0-1 .447-1 1 0 .136.03.265.078.383h-.002zM152.55 48.844h-.002L86.092 76.422c-.36.15-.617.507-.617.924 0 .553.446 1 1 1 .135 0 .265-.028.383-.077L153.32 50.69c.363-.15.618-.507.618-.924 0-.553-.447-1-1-1-.136 0-.265.028-.383.077h-.005zM7.41 111.136h.002l66.492-27.54c.36-.15.616-.507.616-.924 0-.553-.447-1-1-1-.136 0-.264.028-.382.077v-.002l-.004.002c-.002 0-.004 0-.006.002L6.638 109.29c-.36.15-.615.507-.615.924 0 .553.446 1 1 1 .135 0 .264-.028.382-.077h.004zM159 79H87c-.552 0-1 .448-1 1 0 .554.447 1 1 1h72c.553 0 1-.447 1-1s-.447-1-1-1zM23.435 24.85l50.897 50.897.008-.008c.182.18.43.29.707.29.553 0 1-.446 1-1 0-.296-.135-.555-.34-.737L24.85 23.433c-.183-.18-.433-.292-.71-.292-.55 0-.998.448-.998 1 0 .277.11.528.293.71zM6.618 50.657v.002l66.51 27.54c.003 0 .005 0 .007.002l.004.002c.117.048.245.076.38.076.554 0 1-.447 1-1 0-.417-.254-.772-.616-.923v-.002L7.392 48.813H7.39l-.005-.003c-.118-.047-.247-.076-.383-.076-.552 0-1 .447-1 1 0 .417.256.773.618.923zM153.383 109.28l-66.52-27.53-.006-.002c-.118-.048-.248-.076-.384-.076-.552 0-1 .447-1 1 0 .417.256.773.62.923l66.513 27.528c.003 0 .005 0 .007.002l.004.002c.118.048.246.076.382.076.552 0 1-.447 1-1 0-.417-.256-.772-.617-.923zM80 74c.553 0 1-.447 1-1V1c0-.553-.447-1-1-1-.552 0-1 .447-1 1v72c0 .553.447 1 1 1zM80 86c-.552 0-1 .447-1 1v72c0 .553.447 1 1 1s1-.447 1-1V87c0-.553-.447-1-1-1zM77.36 85.47c-.417 0-.772.254-.923.616l-27.564 66.53.002.002c-.05.117-.077.246-.077.382 0 .553.446 1 1 1 .416 0 .772-.255.922-.618h.002L78.28 86.86v-.004l.003-.005c.048-.117.076-.246.076-.382 0-.552-.448-1-1-1zM82.708 74.547c.417 0 .772-.255.923-.618h.003l27.56-66.547h-.004c.048-.12.076-.247.076-.383 0-.553-.447-1-1-1-.416 0-.772.255-.922.618h-.002l-27.56 66.546h.004c-.05.12-.077.247-.077.383-.002.553.445 1 .998 1zM74 80c0-.552-.446-1-1-1H1c-.552 0-1 .447-1 1 0 .553.447 1 1 1h72c.554 0 1-.446 1-1z"/></g></svg>
+          <span>教程</span>
+        </a>
+      </div>
+    
+      <div class="panel-item active"">
+        <a class="" href="http://guide.meteor.com"  >
+          <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><path fill="#BDA671" d="M80 1.988c43.01 0 78 34.99 78 78s-34.99 78-78 78-78-34.99-78-78 34.99-78 78-78m0-2c-44.183 0-80 35.817-80 80s35.817 80 80 80 80-35.817 80-80-35.817-80-80-80z"/><path fill="#BDA671" d="M126.454 33.545l-37.93 54.98-54.98 37.93 37.93-54.98 54.98-37.93m0-2c-.395 0-.79.116-1.135.354L70.336 69.826c-.2.138-.373.312-.51.51l-37.93 54.98c-.548.796-.45 1.868.232 2.55.386.388.898.587 1.414.587.395 0 .79-.116 1.135-.354l54.98-37.93c.2-.137.373-.31.51-.51l37.93-54.98c.548-.795.45-1.867-.232-2.55-.387-.386-.9-.585-1.414-.585z"/><circle fill="#BDA671" cx="79.999" cy="79.999" r="2.999"/><path fill="#BDA671" d="M135.477 50.182c-.02-.036-.04-.05-.06-.045-.173-.303-.485-.516-.858-.516-.553 0-1 .448-1 1 0 .21.078.394.188.554l-.02.007C138.358 59.766 141 69.57 141 79.99c0 33.636-27.364 61-61 61-10.42 0-20.232-2.634-28.82-7.26l-.005.02c-.144-.08-.3-.14-.478-.14-.552 0-1 .448-1 1 0 .336.176.618.43.8-.016.012-.034.025-.03.027 8.896 4.81 19.078 7.552 29.904 7.552 34.795 0 63-28.206 63-63 0-10.79-2.735-20.93-7.523-29.805zM109.65 24.47c-.002-.02.004-.04-.025-.056-8.83-4.727-18.908-7.426-29.625-7.426-34.794 0-63 28.206-63 63 0 10.79 2.73 20.935 7.514 29.81.005.01.012.004.018.01.17.312.488.532.87.532.552 0 1-.447 1-1 0-.197-.073-.37-.17-.525l.04-.002C21.642 100.223 19 90.41 19 79.988c0-33.636 27.364-61 61-61 10.4 0 20.185 2.634 28.757 7.248.02.01.036.02.055.028.116.047.24.075.37.075.554 0 1-.448 1-1 .002-.382-.22-.7-.533-.87z"/></svg>
+          <span>指南</span>
+        </a>
+      </div>
+    
+      <div class="panel-item "">
+        <a class="" href="http://docs.meteor.com"  >
+          <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><path fill="#DE4F4F" d="M35.6 30.167v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .553-.447 1-1 1H35.6v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .553-.447 1-1 1H35.6v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .55-.447 1-1 1H35.6v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .55-.447 1-1 1H35.6v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .55-.447 1-1 1H35.6v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .55-.447 1-1 1H35.6v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .55-.447 1-1 1H35.6v5.375H80c.552 0 1 .447 1 1v10.873c1.162.413 2 1.51 2 2.816 0 1.657-1.343 3-3 3s-3-1.343-3-3c0-1.305.837-2.402 2-2.815v-9.873H34.6c-.552 0-1-.45-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.45-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.45-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.45-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.45-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.447-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.447-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.447-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.447-1-1s.448-1 1-1h90.8c.553 0 1 .447 1 1v7.375c0 .553-.447 1-1 1H35.6zM138 6.564H22c-1.104 0-2 .896-2 2v144c0 1.104.896 2 2 2h48.995c.258 0 .516-.097.712-.293.39-.39.39-1.022 0-1.413-.195-.195-.45-.293-.707-.293H22v-144h116v144H89.006c-.258 0-.517.097-.713.293-.39.39-.39 1.023 0 1.414.196.198.455.294.713.293H138c1.104 0 2-.895 2-2v-144c0-1.103-.896-2-2-2z"/></svg>
+          <span>API 文档</span>
+        </a>
+      </div>
+    
+      <div class="panel-item "">
+        <a class="" href="https://forums.meteor.com/" target=_new >
+          <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><path fill="#333" d="M60.025 17.72c7.396 0 14.914 1.424 22.172 4.43 29.594 12.258 43.648 46.188 31.39 75.782-9.25 22.334-30.843 35.812-53.6 35.812-4.694 0-9.437-.574-14.132-1.76L32.44 142.277 30.23 125.51C5.908 111.003-4.74 80.48 6.418 53.538 15.67 31.204 37.266 17.72 60.025 17.72m0-2c-24.363 0-46.13 14.545-55.455 37.053-5.547 13.394-6.06 28.33-1.447 42.052 4.465 13.276 13.414 24.57 25.252 31.896l2.082 15.82c.092.708.557 1.31 1.217 1.585.246.104.506.152.766.152.434 0 .86-.142 1.217-.412l12.656-9.713c4.482 1.055 9.076 1.59 13.674 1.59 24.36 0 46.126-14.543 55.447-37.047 6.135-14.807 6.135-31.115.002-45.922C109.3 37.966 97.77 26.433 82.963 20.3c-7.34-3.04-15.06-4.58-22.938-4.58zM92.69 133.9c.165-.443.614-.683 1.064-.623l.004-.024c5.18.558 10.343.396 15.365-.414v2.034c-5.13.796-10.4.942-15.69.356l.002-.02c-.052-.01-.105-.006-.158-.023-.517-.193-.78-.768-.586-1.287z"/><path fill="#333" d="M100.877 133.604c4.41-.065 8.86-.633 13.268-1.746l13.416 10.295 2.208-16.77c24.324-14.505 34.976-45.03 23.814-71.97-9.248-22.33-30.832-35.81-53.584-35.82v.02c-2.072-.002-4.154.096-6.238.32l-.004-.024c-.45.058-.9-.18-1.064-.625-.194-.518.068-1.093.586-1.286.054-.02.107-.015.158-.026l-.002-.02c2.19-.24 4.377-.348 6.553-.35v-.01c24.36.004 46.12 14.545 55.443 37.054 5.55 13.393 6.062 28.327 1.447 42.05-4.465 13.28-13.414 24.57-25.252 31.897l-2.082 15.818c-.092.71-.557 1.312-1.217 1.586-.246.103-.506.15-.766.15-.435 0-.86-.14-1.218-.412l-12.655-9.713c-4.2.988-8.502 1.502-12.812 1.564l.002-1.986z"/><circle fill="#333" cx="60.019" cy="77" r="3.001"/><circle fill="#333" cx="76.018" cy="77" r="3"/><circle fill="#333" cx="44.019" cy="77" r="3.001"/></svg>
+
+          <span>论坛</span>
+        </a>
+      </div>
+    
+  </div>
+
+  <div class="sidebar-content">
+    <div class="topcap">
+      <span class="title-sidebar">Meteor 指南 中译本</span>
+      
+        <span class="select version-sidebar nochrome">
+          <select class="version-select">
+            
+              <option value="v1.4">1.4</option>
+            
+              <option value="v1.3">1.3</option>
+            
+              <option value="v1.2">1.2</option>
+            
+          </select>
+        </span>
+      
+    </div>
+
+    
+    <div class="wrapper-search">
+      <div class="input-symbol small round">
+        <input type="text" placeholder="Search 官方指南" id="desktop-search-input" />
+        <span class="icon-search"></span>
+      </div>
+      <div class="wrapper-desktop-search-results"></div>
+    </div>
+
+    
+
+    <ul class="toc">
+      
+        <li>
+          
+          <ul class="list-toc">
+            
+              
+              <li class="item-toc ">
+                <a href="index.html" class="sidebar-link ">
+                  <span>介绍</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="code-style.html" class="sidebar-link ">
+                  <span>编码风格</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="structure.html" class="sidebar-link ">
+                  <span>Application Structure</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="1.4-migration.html" class="sidebar-link ">
+                  <span>迁移到 Meteor 1.4</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="1.3-migration.html" class="sidebar-link ">
+                  <span>Migrating to Meteor 1.3</span>
+                </a>
+              </li>
+            
+          </ul>
+        </li>
+      
+        <li>
+          
+            <div class="heading-toc">数据</div>
+          
+          <ul class="list-toc">
+            
+              
+              <li class="item-toc ">
+                <a href="collections.html" class="sidebar-link ">
+                  <span>数据集与数据结构</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="data-loading.html" class="sidebar-link ">
+                  <span>Publications and Data Loading</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc  current">
+                <a href="" class="sidebar-link  current">
+                  <span>Method</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="accounts.html" class="sidebar-link ">
+                  <span>Users and Accounts</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="testing.html" class="sidebar-link ">
+                  <span>Testing</span>
+                </a>
+              </li>
+            
+          </ul>
+        </li>
+      
+        <li>
+          
+            <div class="heading-toc">视图</div>
+          
+          <ul class="list-toc">
+            
+              
+              <li class="item-toc ">
+                <a href="routing.html" class="sidebar-link ">
+                  <span>URL 和路由</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="ui-ux.html" class="sidebar-link ">
+                  <span>用户界面</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="blaze.html" class="sidebar-link ">
+                  <span>Blaze</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="react.html" class="sidebar-link ">
+                  <span>React</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="angular.html" class="sidebar-link ">
+                  <span>Angular</span>
+                </a>
+              </li>
+            
+          </ul>
+        </li>
+      
+        <li>
+          
+            <div class="heading-toc">构建</div>
+          
+          <ul class="list-toc">
+            
+              
+              <li class="item-toc ">
+                <a href="atmosphere-vs-npm.html" class="sidebar-link ">
+                  <span>Atmosphere vs. npm</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="using-atmosphere-packages.html" class="sidebar-link ">
+                  <span>Using Atmosphere Packages</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="writing-atmosphere-packages.html" class="sidebar-link ">
+                  <span>Writing Atmosphere Packages</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="using-npm-packages.html" class="sidebar-link ">
+                  <span>使用 npm 包</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="writing-npm-packages.html" class="sidebar-link ">
+                  <span>Writing npm Packages</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="mobile.html" class="sidebar-link ">
+                  <span>Mobile</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="build-tool.html" class="sidebar-link ">
+                  <span>Build System</span>
+                </a>
+              </li>
+            
+          </ul>
+        </li>
+      
+        <li>
+          
+            <div class="heading-toc">生产环境</div>
+          
+          <ul class="list-toc">
+            
+              
+              <li class="item-toc ">
+                <a href="security.html" class="sidebar-link ">
+                  <span>Security</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="deployment.html" class="sidebar-link ">
+                  <span>Deployment and Monitoring</span>
+                </a>
+              </li>
+            
+          </ul>
+        </li>
+      
+        <li>
+          
+            <div class="heading-toc">有关本指南</div>
+          
+          <ul class="list-toc">
+            
+              
+              <li class="item-toc ">
+                <a href="CONTRIBUTING.html" class="sidebar-link ">
+                  <span>Contribution Guidelines</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="CHANGELOG.html" class="sidebar-link ">
+                  <span>Changelog</span>
+                </a>
+              </li>
+            
+          </ul>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="nav dark">
+  <div class="nav-group">
+    <div class="nav-item">
+      <span class="js-sidebar-toggle">
+        <span class="icon-menu"></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="center-wrapper">
+    <img src="../images/logo-coralspace.svg" alt="Meteor 指南 中译本"/>
+    <div>官方指南</div>
+  </div>
+
+  
+  <div class="nav-group right">
+    <div class="nav-item">
+      <span class="js-search-toggle">
+        <span class="icon-search"></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="nav-search">
+    <div class="input-symbol">
+      <input type="text" placeholder="Search 官方指南" id="mobile-search-input"/>
+      <span class="icon-search"></span>
+    </div>
+
+    <div class="nav-group right">
+      <div class="nav-item">
+        <span class="js-search-toggle">
+          <span class="icon-close"></span>
+        </span>
+      </div>
+    </div>
+    
+    <div class="wrapper-mobile-search-results"></div>
+  </div>
+  
+</div>
+
+<div class="content">
+  <div class="content-wrapper">
+    <div class="header-content">
+      <h1 class="title-page">Method</h1>
+      
+        <div class="subtitle-page">如何使用 Method, Meteor 通过使用 Method 将数据变化写入数据库</div>
+      
+
+      <div class="page-actions">
+        <div class="actions-group">
+          <a class="btn primary small round lowercase" href="https://github.com/ourmeteor/guide-zh/tree/master/content/methods.md" target="_blank"><span class="icon-github"></span> <span>Edit on GitHub</span></a>
+          
+            <a class="btn tertiary small round lowercase" href="https://forums.meteor.com/t/19662"><span class="icon-comment"></span> <span>Discuss</span></a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="document-formatting">
+      <p>读完全文，你将能够：</p>
+<ol>
+<li>Meteor 中 Method 指什么，以及他们是怎样工作的。</li>
+<li>Method 的定义及调用实践。</li>
+<li>如何使用 Method 抛出和处理错误。</li>
+<li>如何从表单中调用 Method。</li>
+</ol>
+<h2 id="what-is-a-method">什么是 Method？</h2>
+
+<p>Method 是 Meteor 的远程程序调用系统, 用于保存用户在客户端输入的数据和事件。如果你熟悉 REST APIs 或者 HTTP，你可以把它想象为 POST 请求到服务器，但是它是在一种针对现代 web 应用设计的形式中。 在文章的最后，我们会谈到使用 Method 在哪些方面优于使用 HTTP 端点。</p>
+<p>Method 的核心是作为服务器的 API 端点，你可以在服务器定义一个 Method，然后在客户端定义它的副本，然后调用 Method，将数据写入数据库，并获得 返回值。Meteor Methods 紧密集成 Meteor 的发布/订阅和数据装载系统，实现 UI 优化<a href="http://info.meteor.com/blog/optimistic-ui-with-meteor-latency-compensation" target="_blank" rel="external">Optimistic UI</a> —— 在客户端模拟服务器端操作的能力，让你的应用运行得更快。</p>
+<p>我们在谈到 Meteor Method 时会用大些字母 M， 是为了区别 JavaScript 中的 methods。</p>
+<h2 id="defining-and-calling">定义和调用 Methods</h2>
+
+<h3 id="basic">基础 Method</h3>
+
+<p>在一个简单的应用，定义一个 Method 是跟定义一个函数一样简单的事。在一个复杂的应用，你会需要一些额外的功能，使得 Method 更强大，更加容易测试。首先，我们讲一下如何使用 Meteor 核心 API 定义 Method，在后面的章节我们会讲到如何使用自己创建的封装包建立更好的 Method 工作流。</p>
+<h4 id="basic-defining">定义</h4>
+
+<p>这里提供如何使用内建的<a href="http://docs.meteor.com/#/full/meteor_methods" target="_blank" rel="external"><code>Meteor.methods</code>API</a> 来定义 Method。注意，Method 的定义应该是装载在客户端和服务器端来优化 UI 的通用代码。如果您的 Method 有秘密的程序代码，请参考<a href="security.html#secret-code">安全相关章节</a>来了解如何从客户端隐藏秘密的程序代码。</p>
+<p>下面这个案例添加了包： <code>aldeed:simple-schema</code>，这个包在很多文章都有提到，是用来验证 Method 参数的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">Meteor.methods(&#123;</div><div class="line">  <span class="string">'todos.updateText'</span>(&#123; todoId, newText &#125;) &#123;</div><div class="line">    <span class="keyword">new</span> SimpleSchema(&#123;</div><div class="line">      todoId: &#123; type: <span class="built_in">String</span> &#125;,</div><div class="line">      newText: &#123; type: <span class="built_in">String</span> &#125;</div><div class="line">    &#125;).validate(&#123; todoId, newText &#125;);</div><div class="line"></div><div class="line">    <span class="keyword">const</span> todo = Todos.findOne(todoId);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!todo.editableBy(<span class="keyword">this</span>.userId)) &#123;</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> Meteor.Error(<span class="string">'todos.updateText.unauthorized'</span>,</div><div class="line">        <span class="string">'Cannot edit todos in a private list that is not yours'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Todos.update(todoId, &#123;</div><div class="line">      $set: &#123; text: newText &#125;</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="basic-calling">调用</h4>
+
+<p>从客户端和服务器中使用<a href="http://docs.meteor.com/#/full/meteor_call" target="_blank" rel="external"><code>Meteor.call</code></a> 可以调用 Method。请注意，您应该只在一些代码需要从客户端调用的情况下使用 Method; 如果你只是想在服务器端实现代码模块化，应该使用常规的 JavaScript 函数，而不是 Method。</p>
+<p>我们如何从客户端调用 Method:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Meteor.call(<span class="string">'todos.updateText'</span>, &#123;</div><div class="line">  todoId: <span class="string">'12345'</span>,</div><div class="line">  newText: <span class="string">'This is a todo item.'</span></div><div class="line">&#125;, (err, res) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (err) &#123;</div><div class="line">    alert(err);</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="comment">// success!</span></div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>如果 Method 抛出一个错误，你会得到回调的第一个参数。如果没有抛出错误，第二个参数会返回结果，第一个参数 <code>err</code> 会被设置为 <code>undefined</code>。有关错误的详细信息，请参阅以下有关错误处理的部分。</p>
+<h3 id="advanced-boilerplate">高级 Method boilerplate</h3>
+
+<p>Meteor Method 有几个特点并非立竿见影，但是每一个复杂的应用程序都会或多或少使用到 Method。这些功能是以向后兼容的方式逐年递增的，所以解锁 Method 的全部功能，需要大量的 boilerplate。在这篇文章中，我们首先会告诉你所有的代码，你需要写每一个功能，那么下一节我们将谈论 Method 封装包，使得 Method 的使用更加方便。</p>
+<p>一个好的 Method 应该具备以下功能：</p>
+<ol>
+<li>在运行 Method 本体前能自身验证数据</li>
+<li>较容易覆盖 Method 用于测试。</li>
+<li>较容易通过自定义的用户 ID 调用方法，特别是在测试的时候（推荐文章 <a href="https://www.discovermeteor.com/blog/meteor-pattern-two-tiered-methods/" target="_blank" rel="external">Discover Meteor two-tiered methods pattern</a>）。</li>
+<li>通过 JS 函数模块调用方法，而非通过字符串。</li>
+<li>通过 Method 模拟返回值来获得所插入文档的 ID.</li>
+<li>如果客户端验证失败也避免调用服务器端的 Method, 不至于占用服务器资源。</li>
+</ol>
+<h4 id="advanced-boilerplate-defining">定义</h4>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> updateText = &#123;</div><div class="line">  name: <span class="string">'todos.updateText'</span>,</div><div class="line"></div><div class="line">  <span class="comment">// 将有效性验证分离，这样可以独立运行（1）</span></div><div class="line">  validate(args) &#123;</div><div class="line">    <span class="keyword">new</span> SimpleSchema(&#123;</div><div class="line">      todoId: &#123; type: <span class="built_in">String</span> &#125;,</div><div class="line">      newText: &#123; type: <span class="built_in">String</span> &#125;</div><div class="line">    &#125;).validate(args)</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="comment">// 将方法本体分离，这样可以单独调用（3）</span></div><div class="line">  run(&#123; todoId, newText &#125;) &#123;</div><div class="line">    <span class="keyword">const</span> todo = Todos.findOne(todoId);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!todo.editableBy(<span class="keyword">this</span>.userId)) &#123;</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> Meteor.Error(<span class="string">'todos.updateText.unauthorized'</span>,</div><div class="line">        <span class="string">'Cannot edit todos in a private list that is not yours'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Todos.update(todoId, &#123;</div><div class="line">      $set: &#123; text: newText &#125;</div><div class="line">    &#125;);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="comment">// 通过引用 JS 对象来调用方法（4）</span></div><div class="line">  <span class="comment">// 我们可以在实现 Method 的时候指定 Meteor.apply 选项，而不是要求调用者指定。</span></div><div class="line">  call(args, callback) &#123;</div><div class="line">    <span class="keyword">const</span> options = &#123;</div><div class="line">      returnStubValue: <span class="literal">true</span>,     <span class="comment">// (5)</span></div><div class="line">      throwStubExceptions: <span class="literal">true</span>  <span class="comment">// (6)</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Meteor.apply(<span class="keyword">this</span>.name, [args], options, callback);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 实际上通过 Meteor 的 DDP 系统注册 Method</span></div><div class="line">Meteor.methods(&#123;</div><div class="line">  [updateText.name]: <span class="function"><span class="keyword">function</span> (<span class="params">args</span>) </span>&#123;</div><div class="line">    updateText.validate.call(<span class="keyword">this</span>, args);</div><div class="line">    updateText.run.call(<span class="keyword">this</span>, args);</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="advanced-boilerplate-calling">调用</h4>
+
+<p>现在调用 Method 就跟调用一个 JavaScript 函数一样简单了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; updateText &#125; <span class="keyword">from</span> <span class="string">'./path/to/methods.js'</span>;</div><div class="line"></div><div class="line"><span class="comment">// 首先调用 Method</span></div><div class="line">updateText.call(&#123;</div><div class="line">  todoId: <span class="string">'12345'</span>,</div><div class="line">  newText: <span class="string">'This is a todo item.'</span></div><div class="line">&#125;, (err, res) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (err) &#123;</div><div class="line">    alert(err);</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="comment">// 成功！</span></div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 调用有效性</span></div><div class="line">updateText.validate(&#123; wrong: <span class="string">'args'</span>&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 在测试中通过自定义的客户 ID 调用方法</span></div><div class="line">updateText.run.call(&#123; userId: <span class="string">'abcd'</span> &#125;, &#123;</div><div class="line">  todoId: <span class="string">'12345'</span>,</div><div class="line">  newText: <span class="string">'This is a todo item.'</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>正如你所看到的，这种 Method 调用方式可以有一个更好的开发流程, 你可以更容易地分开处理的 Method 的不同部位，更容易测试你的代码，而不必深挖 Meteor 内部工作原理。但这种 Method 调用方式需要你在定义 Method 的时候写了很多 boilerplate。</p>
+<h3 id="validated-method">使用包 mdg:validated-method 来实现 Method 的高级功能</h3>
+
+<p>为了帮助你在在定义 Method 的时候写正确的 boilerplate，我们已经发布了一个包：<code>mdg:validated-method</code>，可以帮你省下很多工作量。下面是与上述相同的 Method，在包中定义：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> updateText = <span class="keyword">new</span> ValidatedMethod(&#123;</div><div class="line">  name: <span class="string">'todos.updateText'</span>,</div><div class="line">  validate: <span class="keyword">new</span> SimpleSchema(&#123;</div><div class="line">    todoId: &#123; type: <span class="built_in">String</span> &#125;,</div><div class="line">    newText: &#123; type: <span class="built_in">String</span> &#125;</div><div class="line">  &#125;).validator(),</div><div class="line">  run(&#123; todoId, newText &#125;) &#123;</div><div class="line">    <span class="keyword">const</span> todo = Todos.findOne(todoId);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!todo.editableBy(<span class="keyword">this</span>.userId)) &#123;</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> Meteor.Error(<span class="string">'todos.updateText.unauthorized'</span>,</div><div class="line">        <span class="string">'Cannot edit todos in a private list that is not yours'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Todos.update(todoId, &#123;</div><div class="line">      $set: &#123; text: newText &#125;</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在这里 Method 的调用跟前面的一样，但在这里 Method 的定义是非常简单的。我们相信，这种定义方法可以让你清楚地看到定义 Method 的重点，通过 Method 的名称，预期参数的格式，以及 JavaScript 命名空间可以调用该方法。</p>
+<h2 id="errors">错误处理</h2>
+
+<p>常规的 JavaScript 函数，我们以抛出<code>Error</code>对象的形式来发现错误。Meteor Method 也是以这种形式抛出错误，但也会出现复杂的情形，比如 <code>Error</code> 对象会通过 WebSocket 被发往客户端。引发错误工作几乎相同的方式，微复杂之处在于，某些情况下这个错误对象会通过 WebSocket 被发往客户端。<br>译注：事实上，作为 DDP 消息的一种，错误对象并不总是通过 WebSocket 传送。当 WebSocket 因为某些原因不可用的时候，Meteor 会尝试使用轮询的方式建立 DDP 连接来传送 DDP 消息。</p>
+<h3 id="throwing-errors">从 Method 抛出错误</h3>
+
+<p>Meteor 介绍了两种 JavaScript 错误：<a href="http://docs.meteor.com/#/full/meteor_error" target="_blank" rel="external"><code>Meteor.Error</code></a> 以及 <a href="https://atmospherejs.com/mdg/validation-error" target="_blank" rel="external"><code>ValidationError</code></a>. 这两种错误应该和常见的 JavaScript 错误区分开来。</p>
+<h4 id="internal-server-errors">内部服务器错误引发的常见错误</h4>
+
+<p>当服务器内部有错误，不需要报告给客户端时，抛出一个常规的 JavaScript 错误对象。客户端将会接收到一个没有细节的完全不透明的内部服务器错误报告。</p>
+<h4 id="meteor-error">一般运行时错误下的 Meteor.Error</h4>
+
+<p>当服务器在已知条件下不能够完成用户所需的操作，应该抛出一个描述性的 <code>Meteor.Error</code> 对象给客户端。在 Todos 应用程序中，我们使用这种方法报告当前用户无权完成某个操作，或该操作不被应用允许——例如，删除最后一个公开的 Todo 列表。</p>
+<p><code>Meteor.Error</code> 有三个参数： <code>error</code>, <code>reason</code>, 和 <code>details</code>.</p>
+<ol>
+<li><code>error</code> 应该是简短，唯一，机器可读的错误代码串，客户端可以翻译它并了解发生了什么。最好是在 <code>error</code> 加上 Method 的名称作为前缀，例如：<code>&#39;todos.updateText.unauthorized&#39;</code>。</li>
+<li><code>reason</code> 是为开发者简短描述发生的错误。它应该能够提供足够的信息用于调试错误。<code>reason</code> 参数不应该直接对终端用户可见，这意味着需要在发送错误信息前在服务器端实现国际化，UI 开发者在考虑 UI 展示时也应该思考 Method 的实现</li>
+<li><code>details</code> 不是必需的，可以用于提供额外的信息帮助客户端发现哪里出错。另外，它还可以结合 <code>error</code> 参数给终端用户提供更有用的错误信息。<br>译注：</li>
+<li>在一些应用中你会看到 error 参数是一个 HTTP 响应码，如 404。我们不建议在这里使用响应码，因为它不容易被理解，尤其是使用不常用响应码的时候。</li>
+<li>在不需要国际化的情况下，常用 reason 参数直接作为显示的信息。尽管如此，按照这份指南来做总不会吃亏的。</li>
+</ol>
+<h4 id="validation-error">参数验证错误下的 ValidationError</h4>
+
+<p>因为参数类型错误而导致调用方法失败，最好抛出一个 <code>ValidationError</code>，原理跟 <code>Meteor.Error</code> 一样，但它有一个产生标准错误格式的定制构造器，可以被不同的表单和验证库读取。如果你从表单中调用 Method，抛出一个 <code>ValidationError</code>会使得错误信息在表单中某一位置展示更加简单。</p>
+<p>像上面那样，当你使用 <code>mdg:validated-method</code> 和 <code>aldeed:simple-schema</code>, 就会抛出这种错误。</p>
+<p>查看此文了解更多错误格式 <a href="https://atmospherejs.com/mdg/validation-error" target="_blank" rel="external"><code>mdg:validation-error</code> 文档</a>.</p>
+<h3 id="handling-errors">处理错误</h3>
+
+<p>当调用一个 Method 的时候，任何抛出的错误都会在回调中返回。这个时候要识别错误类型并将信息传递给用户。在这个例子中，Method 几乎不会抛出 <code>ValidationError</code> 或者内部服务器错误，所以我们只会处理未经授权错误：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 调用 Method</span></div><div class="line">updateText.call(&#123;</div><div class="line">  todoId: <span class="string">'12345'</span>,</div><div class="line">  newText: <span class="string">'This is a todo item.'</span></div><div class="line">&#125;, (err, res) =&gt; &#123;</div><div class="line">  <span class="keyword">if</span> (err) &#123;</div><div class="line">    <span class="keyword">if</span> (err.error === <span class="string">'todos.updateText.unauthorized'</span>) &#123;</div><div class="line">      <span class="comment">// 在一个真实的应用中你可能不需要调用 alert 展示警报；你会有一个好看的 UI 界面去展示这些错误，还可以用 i18n 库从错误代码中自动产生信息。</span></div><div class="line">      alert(<span class="string">'You aren\'t allowed to edit this todo item'</span>);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="comment">// 未知错误，在 UI 端处理</span></div><div class="line">    &#125;</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="comment">// 成功！</span></div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在下面章节我们将讨论如何处理 <code>ValidationError</code>。</p>
+<h3 id="throw-stub-exceptions">Method 在客户端模拟运行时的错误</h3>
+
+<p>当一个 Method 被调用时，它通常运行两次—— 一次在客户端上，以模拟优化 UI 的输出结果，第二次在服务器上进行数据库的实际变化操作。这意味着，如果 Method 抛出一个错误，它可能会在客户端和服务器上都出现错误。出于这个原因，<code>ValidatedMethod</code> 打开 Meteor 中的无证选项，以避免在客户端模拟抛出错误时继续调用服务器端执行。</p>
+<p>这种运行方式在 Method 发生错误时对节省服务器资源有帮助，但要确保的是，当 Method 在服务器端可以成功时客户端的模拟不会发生错误（例如你不用在客户端加载数据用于 Method 模拟）。在这个例子中，你可以把服务器端的代码封装成一个模块，用于检验方法模拟：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!<span class="keyword">this</span>.isSimulation) &#123;</div><div class="line">  <span class="comment">// 此处逻辑依赖于服务器端环境</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="method-form">从表单调用 Method</h2>
+
+<p><code>ValidationError</code> 最主要的用途是在 Method 和调用它们的表单之间进行简单的集成。在一般情况下，你的应用很可能有在 UI 上的表单跟 Method 是一对一映射的。首先，为我们的业务逻辑定义一个 Method：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 该 Method 对表单验证需求进行编码。</span></div><div class="line"><span class="comment">// 通过在 Method 中定义表单，我们在同一个地方进行客户端和服务器端的验证。</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> insert = <span class="keyword">new</span> ValidatedMethod(&#123;</div><div class="line">  name: <span class="string">'Invoices.methods.insert'</span>,</div><div class="line">  validate: <span class="keyword">new</span> SimpleSchema(&#123;</div><div class="line">    email: &#123; type: <span class="built_in">String</span>, regEx: SimpleSchema.RegEx.Email &#125;,</div><div class="line">    description: &#123; type: <span class="built_in">String</span>, min: <span class="number">5</span> &#125;,</div><div class="line">    amount: &#123; type: <span class="built_in">String</span>, regEx: <span class="regexp">/^\d*\.(\d\d)?$/</span> &#125;</div><div class="line">  &#125;).validator(),</div><div class="line">  run(newInvoice) &#123;</div><div class="line">    <span class="comment">// 在这里我们可以确认参数 newInvoice 已验证。</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.userId) &#123;</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> Meteor.Error(<span class="string">'Invoices.methods.insert.not-logged-in'</span>,</div><div class="line">        <span class="string">'Must be logged in to create an invoice.'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Invoices.insert(newInvoice)</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>让我们定义一个简单的 HTML 表单：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"Invoices_newInvoice"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"Invoices_newInvoice"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"email"</span>&gt;</span>Recipient email<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"email"</span> <span class="attr">name</span>=<span class="string">"email"</span> /&gt;</span></div><div class="line">    &#123;&#123;#each error in errors "email"&#125;&#125;</div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-error"</span>&gt;</span>&#123;&#123;error&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    &#123;&#123;/each&#125;&#125;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"description"</span>&gt;</span>Item description<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"description"</span> /&gt;</span></div><div class="line">    &#123;&#123;#each error in errors "description"&#125;&#125;</div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-error"</span>&gt;</span>&#123;&#123;error&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    &#123;&#123;/each&#125;&#125;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"amount"</span>&gt;</span>Amount owed<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"amount"</span> /&gt;</span></div><div class="line">    &#123;&#123;#each error in errors "amount"&#125;&#125;</div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-error"</span>&gt;</span>&#123;&#123;error&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    &#123;&#123;/each&#125;&#125;</div><div class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>现在，我们将通过 JavaScript 语言来更好地处理该表单：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; insert &#125; <span class="keyword">from</span> <span class="string">'../api/invoices/methods.js'</span>;</div><div class="line"></div><div class="line">Template.Invoices_newInvoice.onCreated(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.errors = <span class="keyword">new</span> ReactiveDict();</div><div class="line">&#125;);</div><div class="line"></div><div class="line">Template.Invoices_newInvoice.helpers(&#123;</div><div class="line">  errors(fieldName) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.errors.get(fieldName);</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">Template.Invoices_newInvoice.events(&#123;</div><div class="line">  <span class="string">'submit .Invoices_newInvoice'</span>(event, instance) &#123;</div><div class="line">    <span class="keyword">const</span> data = &#123;</div><div class="line">      email: event.target.email.value,</div><div class="line">      description: event.target.description.value,</div><div class="line">      amount: event.target.amount.value</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    insert.call(data, (err, res) =&gt; &#123;</div><div class="line">      <span class="keyword">if</span> (err) &#123;</div><div class="line">        <span class="keyword">if</span> (err.error === <span class="string">'validation-error'</span>) &#123;</div><div class="line">          <span class="comment">// 初始化错误对象</span></div><div class="line">          <span class="keyword">const</span> errors = &#123;</div><div class="line">            email: [],</div><div class="line">            description: [],</div><div class="line">            amount: []</div><div class="line">          &#125;;</div><div class="line"></div><div class="line">          <span class="comment">// 遍历从 Method 返回的验证错误</span></div><div class="line">          err.details.forEach((fieldError) =&gt; &#123;</div><div class="line">            <span class="comment">// XXX i18n</span></div><div class="line">            errors[fieldError.name].push(fieldError.type);</div><div class="line">          &#125;);</div><div class="line"></div><div class="line">          <span class="comment">// 更新 ReactiveDict，错误会在 UI 显示。</span></div><div class="line">          instance.errors.set(errors);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>正如你所看到的，表单中有大量的 boilerplate 可以用来处理错误，大部分 boilerplate 可以通过现成的表单框架或你自己封装的、基于特定应用的设计来实现。</p>
+<h2 id="loading-data">通过 Methods 加载数据</h2>
+
+<p>因为 Method 可以作为通用 RPC，所以也可以被用于获取数据而不用通过 publications。对比通过 publications 加载数据，使用 Methods 加载数据有有点也有不足，但到目前为止，我们建议总是通过 publications 加载数据。</p>
+<p>当服务器端数据变化时，服务器端一个复杂计算的结果不变，在这种情况下用 Method 获取数据非常有用，通过 Method 获取数据的最大不足就是获取的数据不会自动加载到 Minimongo，即 Meteor 的客户端数据缓存，所以需要你手动管理数据生命周期。</p>
+<h4 id="local-collection">使用一个本地数据集来存储并显示来自 Method 的数据</h4>
+
+<p>数据集可以方便地在客户端存储数据。如果你不是通过 subscriptions 的方式获取数据，可以手动将数据添加到数据集。 下面我们来看一个例子，将复杂的算法用于计算拥有众多玩家的一系列游戏的平均得分。我们不想使用 publications 加载数据因为我们想要控制何时让它运行，而不想让数据自动缓存。</p>
+<p>首先，你需要创建一个本地数据集， 该数据集只存在于客户端而不跟服务器端的数据集联系。在<a href="http://guide.meteor.com/collections.html#local-collections" target="_blank" rel="external">数据集一章</a>中了解更多。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 在客户端声明一个本地数据集</span></div><div class="line"><span class="comment">// 传送一个 `null` 作为参数</span></div><div class="line">ScoreAverages = <span class="keyword">new</span> Mongo.Collection(<span class="literal">null</span>);</div></pre></td></tr></table></figure>
+<p>现在，如果你通过 Method 获取数据，可以放在该数据集里面：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; calculateAverages &#125; <span class="keyword">from</span> <span class="string">'../api/games/methods.js'</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateAverages</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// 清除结果缓存</span></div><div class="line">  ScoreAverages.remove(&#123;&#125;);</div><div class="line"></div><div class="line">  <span class="comment">// 调用 Method 用于复杂计算</span></div><div class="line">  calculateAverages.call((err, res) =&gt; &#123;</div><div class="line">    res.forEach((item) =&gt; &#123;</div><div class="line">      ScoreAverages.insert(item);</div><div class="line">    &#125;);</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在我们可以在一个 UI 组件中使用名为 <code>ScoreAverages</code> 的本地数据集中的数据，跟我们使用 MongoDB 数据集 是完全一样的。它不会自动更新，每次计算结果的时候都需要调用 <code>updateAverages</code>.</p>
+<h2 id="advanced">进阶概念</h2>
+
+<p>虽然根据 Meteor 的入门手册你可以很轻松地在简单应用中使用 Meteor, 但是了解 Method 是如何运作的可以帮你更好地使用它。类似 Meteor 这样的框架为你做了很多工作，缺点之一就是你不总是理解究竟是怎样运作的，所以学习一些核心概念是很重要的。</p>
+<h3 id="call-lifecycle">Method 调用的生命周期</h3>
+
+<p>当一个 Method 被调用时，会发生以下事件：</p>
+<h4 id="lifecycle-simulation">1. Method 模拟在客户端上运行</h4>
+
+<p>跟所有 Method 一样，如果我们在客户端和服务器端定义该 Method, Method 模拟在调用它的客户端上运行。</p>
+<p>客户端进入到一种特殊模式，在该模式下可以跟踪到客户端数据集的所有变化，将来可以回滚。该步骤结束后，应用的用户可以看到 UI 界面立即根据客户端数据库的内容进行更新，即使服务器还没有收到任何数据。</p>
+<p>如果 Method 模拟抛出一个异常，默认情况下 Meteor 会忽略它并继续步骤 (2)。如果你使用 <code>ValidatedMethod</code> 或者传送一个特殊的 <code>throwStubExceptions</code> 选项到 <code>Meteor.apply</code>,那么从模拟中抛出的异常将导致服务器端的 Method 彻底停止运行。</p>
+<p>除非在调用 Method 时传送 <code>returnStubValue</code> 选项，否则 Method 返回值会被抛弃，而不会返回到 Method 调用者。ValidatedMethod 在默认情况下会传送 <code>returnStubValue</code> 选项。</p>
+<h4 id="lifecycle-ddp-message">2. 一个 <code>method</code> DDP 消息发送到服务器</h4>
+
+<p>Meteor 客户端构建一个 DDP 消息并发送到服务器。消息包括 Method 的名称，参数，自动生成的代表该调用的 Method 的 ID.</p>
+<h4 id="lifecycle-server">3. Method 在服务器上运行</h4>
+
+<p>当服务器收到消息，会在服务器上再次运行 Method 代码。客户端的版本只是一个模拟，将会被回滚，而服务器上是真实的版本，将会被写入数据库。在服务器上运行实际的 Method 代码是很重要的，因为我们知道服务器是一个值得信赖的环境，关键的代码可以在上面按照我们所期望的方式安全地运行。</p>
+<h4 id="lifecycle-result">4. 返回值被发送到客户端</h4>
+
+<p>Method 在服务器上结束运行后，就会把在第二步生成的 ID , <code>result</code> 消息和返回值发送到客户端。这些数据会被储存在客户端，但不会调用 Method 回调。如果你传递一个<a href="http://docs.meteor.com/#/full/meteor_apply" target="_blank" rel="external"><code>onResultReceived</code> 选项到 <code>Meteor.apply</code></a>，回调就会被启动。</p>
+<h4 id="lifecycle-publications">5. DDP 发布通过 Method 实现更新</h4>
+
+<p>如果通过 Method 写入数据库影响到某些发布，服务器会把更新的部分发送到客户端。请注意，客户端的数据系统并不会立即根据这些变化更新应用的 UI，具体的更新我们将在下一步讨论。</p>
+<h4 id="lifecycle-updated">6. <code>updated</code> 发送到客户端，数据替换服务器结果，Method 回调启动</h4>
+
+<p>当相关的数据更新发送到正确的客户端后，服务器返回 Method 生命周期中的最后一条信息 —— DDP <code>updated</code> 信息和关联的 Method ID. 客户端回滚在第一步 Method 模拟中客户端数据的任何变化，并替换为第五步中服务器端发送的更新数据。</p>
+<p>最后，传递给 <code>Meteor.call</code> 的回调实际上跟第四步中的返回值一起启动。客户端更新后再实现回调是很重要的，所以 Method 回调可以假设客户端状态反映了 Method 所做的任何改变。</p>
+<h4 id="lifecycle-error">错误情况</h4>
+
+<p>在上面的步骤中，我们没有考虑 Method 在服务器端执行抛出错误的情况。在这种情况下是没有返回值的，客户端也会得到一个错误值。Method 回调立即启动并返回一个错误值作为第一个参数。了解更多信息请阅读上文关于错误处理的段落。</p>
+<h3 id="methods-vs-rest">与 REST 相比之下 Method 的优点</h3>
+
+<p>相比在 HTTP REST 端点上建立现代应用程序，我们相信 Method 提供了一个更好的起点。我们回顾一下有哪些方面是你使用 HTTP 需要担心，而 Meteor 可以帮你控制的。这部分的目的不是跟你说 REST 有多不好 —— 而是提醒你在 Meteor 应用中你不必处理这些情况。</p>
+<h4 id="non-blocking">Methods 使用同步，非阻塞的 APIs</h4>
+
+<p>你可能注意到上面的 Method 例子中，当和 MongoDB 交互时我们并不需要写任何回调，但 Method 仍然具有 Node.js 和 回调风格代码的无阻塞特性。Method 使用 Fibers 协同程序库 <a href="https://github.com/laverdet/node-fibers" target="_blank" rel="external">Fibers</a>，这样你可以在代码中使用返回值和抛出的错误，并且避免处理很多嵌套的回调。</p>
+<h4 id="ordered">Methods 总是按顺序运行和返回</h4>
+
+<p>访问 REST API 有时会出现会出现你按顺序提出两个请求，但结果却没有按顺序返回的情况。Meteor 的运行机制可以保证这种情况不会在 Method 中产生。当从客户端收到多个调用 Method 的请求时， Meteor 会按顺序执行完一个 Method 再执行下一个 Method. 如果在一个需要长时间运行的 Method 中你想要禁用这种方法，可以使用 <code>this.unblock()</code> <a href="http://docs.meteor.com/#/full/method_unblock" target="_blank" rel="external"><code>this.unblock()</code></a>，这样即使 Method 在运行，下一个 Method 也可以同时进行。因为 Meteor 是基于 WebSockets 而非 HTTP 的，所有的 Method 和调用和返回结果都可以保证以正确的顺序到达。你也可以把 <code>wait: true</code> 传递给 <code>Meteor.apply</code>，这样就可以实现不运行其他 Method 除非该特殊的 Method 返回结果。</p>
+<h4 id="change-tracking">跟踪变动，以便优化 UI</h4>
+
+<p>当 Method 开始模拟，服务器开始运行， Meteor 跟踪所有数据库的变化。在这种情况下， Meteor 数据系统回滚 Meteor 模拟中出现的变化并替换服务器端的数据。如果不是这种自动的数据库跟踪，要实现正确地优化 UI 是很难的。</p>
+<h3 id="calling-method-from-method">从一个 Method 中调用另一个 Method</h3>
+
+<p>有时候你需要从一个 Method 中调用另外一个 Method, 或许你已经实现了一些功能，但你需要可以添加一个封装包自动填充参数。这是一个完全正常模式，Method 也为之做了很多工作：</p>
+<ol>
+<li>在一个客户端的 Method 模拟中，调用另一个 Method 并不会因此像服务器发送额外的请求 —— 我们假设服务器端 Method 的执行会这样做，它确实运行了调用 Method 的模拟，所以客户端的模拟跟服务器上发生的模拟非常贴近。</li>
+<li>在一个服务器端的 Method 模拟中，调用并运行另外一个 Method,  跟在客户端运行一样。这说明 Method 像往常一样运行，<code>userId</code>, <code>connection</code> 等环境变量可以从原来调用的 Method 获取。<h3 id="consistent-id-generation">一致的 ID 生成和 UI 的优化</h3>
+
+</li>
+</ol>
+<p>当从客户端 Method 模拟中往 Minimongo 插入文件时，每个文件的 <code>_id</code> 属性都是随机产生的字符串。当 Method 在服务器端执行时，在插入数据库前会重新生成 ID。如果执行不当的话，服务器端产生的 ID 可能就是不同的，在这种情况下，当 Method 模拟回滚并替换服务器的数据时，可能会出现页面闪烁和 UI 布局问题。但 Meteor 绝不会让这种情况发生！</p>
+<p>Meteor Method 和调用该 Method 的客户端共享一个随机产生的种子，所以客户端和服务器端产生的 ID 都可以保证是相同的。这意味着当 Method 被发送到服务器时你也可以放心使用客户端产生的 ID，相信当 Method 执行结束时所产生的 ID 跟我们所使用的 ID 是一样的。一个应用场景就是用于在数据库创建文件，然后立即重定向到包含该文件 ID 的 url.</p>
+<h3 id="retries">Method 重试</h3>
+
+<p>如果从客户端调用 Method, 用户在收到结果前互联网连接断开的情况，Meteor 默认 Method 并没有实际执行。当重新建立连接后，会重新调用 Method。这意味着，在特定情况下，Method 可以被多次发送。这种情况应该很少发生，如果调用其它方法会产生不利后果，应该投入额外的努力确保 Method 是幂等的 —— 多次调用并不会影响数据库的更新。</p>
+<p>大部分 Method 默认是幂等的。如果插入命令发生两次的话会报错因为生成的 ID 会互相冲突。执行第二次删除不会有任何结果，大部分的更新操作如 <code>$set</code> 在执行第二次时结果不变。 所需要关心的代码运行两次的唯一地方是 MongoDB 的叠加更新，如 <code>$inc</code> 和 <code>$push</code>，以及调用外部的 API.</p>
+<h3 id="comparison-with-allow-deny">与 allow/deny 的比较</h3>
+
+<p>Meteor 核心 API 有一个代替 Method 从客户端操作数据的选择。相对于明确定义 Method 和参数，你可以直接在客户端使用 <code>insert</code>, <code>update</code>, 和 <code>remove</code>，只需要安全规则 allow/deny 中说明，<a href="http://docs.meteor.com/#/full/allow" target="_blank" rel="external"><code>allow</code></a> 和 <a href="http://docs.meteor.com/#/full/deny" target="_blank" rel="external"><code>deny</code></a>。在 Meteor 手册中，我们强烈建议使用 Method，而不是 allow/deny. 了解更多 allow/deny 可能出现的问题请阅读<a href="security.html#allow-deny">安全性章节</a>.</p>
+<p>跟 allow/deny 的特点相比，对 Meteor Method 的了解一向存在误解，包括 Method 更难实现 UI 优化。但是，客户端的 <code>insert</code>, <code>update</code>, 和 <code>remove</code> 是在 Method 的基础上执行的，所以 Method 更加强大。只需要在客户端和服务器上定义 Method 代码，就默认得到优化的 UI, 如以上方法生命周期部分所述。</p>
+
+    </div>
+  </div>
+
+  <div class="pagination">
+    <div class="content-wrapper">
+      
+      
+        <a class="link primary prev"
+          href="writing-npm-packages.html">
+          <span class="icon-arrow-left-alt"></span>
+          <span class="subtitle-pagination">Previous</span>
+          Writing npm Packages
+        </a>
+      
+      
+    </div>
+  </div>
+
+  <div class="github">
+    <a class="link tertiary " href="https://github.com/ourmeteor/guide-zh/tree/master/content/methods.md" target="_blank">
+      <span class="icon-github"></span>Edit on GitHub</a>
+  </div>
+
+  
+    <div class="discourse-comments-wrapper content-wrapper">
+      <div id='discourse-comments'></div>
+    </div>
+
+    <script type="text/javascript">
+      DiscourseEmbed = { discourseUrl: 'http://forums.meteor.com/',
+                         topicId: 19662 };
+
+      (function() {
+        var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+        d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+      })();
+    </script>
+  
+</div>
+
+    <script src="/script/smooth-scroll.min.js"></script>
+    <script src="/script/main.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+    <script>
+      // nectar ninja
+      (function(){
+        var handle = '@meteorjs';
+        var a = document.createElement('script');
+        var m = document.getElementsByTagName('script')[0];
+        a.async = 1;
+        a.src = 'https://nectar.ninja/api/v1/' + handle.slice(1);
+        m.parentNode.insertBefore(a, m);
+      })();
+
+     
+      
+        // Segment Tracking
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+        analytics.load("zQx6cQifkTU79E3L0XAnmrOXP2A5bC6r");
+        analytics.page()
+        }}();
+      
+
+      // search box
+      
+
+        ['desktop', 'mobile'].forEach(function(type) {
+          var search = docsearch({
+            apiKey: 'bdf6b09d12024f6bae3631a0dfdd4a7f',
+            indexName: 'meteor_api_guide',
+            inputSelector: '#' + type + '-search-input',
+            autocompleteOptions: {
+              dropdownMenuContainer: '.wrapper-' + type + '-search-results',
+              debug: true
+            }
+          }).autocomplete;
+
+          var sidebar = document.querySelector('.sidebar-content');
+          search.on('autocomplete:opened', function() {
+            sidebar.classList.add('searching');
+          });
+          search.on('autocomplete:closed', function() {
+            sidebar.classList.remove('searching');
+          });
+          search.on('autocomplete:updated', function() {
+            if (search.val() === '') {
+              search.autocomplete.close();
+            }
+          });
+        });
+      
+
+      
+        var REDIRECTS = {
+  "/using-packages.html": "atmosphere-vs-npm.html",
+  "/using-packages.html#npm": "using-npm-packages.html",
+  "/using-packages.html#client-npm": "using-npm-packages.html#client-npm",
+  "/using-packages.html#installing-npm": "using-npm-packages.html#installing-npm",
+  "/using-packages.html#using-npm": "using-npm-packages.html#using-npm",
+  "/using-packages.html#npm-styles": "using-npm-packages.html#npm-styles",
+  "/using-packages.html#npm-shrinkwrap": "using-npm-packages.html#npm-shrinkwrap",
+  "/using-packages.html#atmosphere": "using-atmosphere-packages.html",
+  "/using-packages.html#atmosphere-searching": "using-atmosphere-packages.html#atmosphere-searching",
+  "/using-packages.html#atmosphere-naming": "using-atmosphere-packages.html#atmosphere-naming",
+  "/using-packages.html#installing-atmosphere": "using-atmosphere-packages.html#installing-atmosphere",
+  "/using-packages.html#using-atmosphere": "using-atmosphere-packages.html#using-atmosphere",
+  "/using-packages.html#importing-atmosphere-styles": "using-atmosphere-packages.html#importing-atmosphere-styles",
+  "/using-packages.html#peer-npm-dependencies": "using-atmosphere-packages.html#peer-npm-dependencies",
+  "/using-packages.html#package-namespacing": "using-atmosphere-packages.html#package-namespacing",
+  "/using-packages.html#async-callbacks": "using-npm-packages.html#async-callbacks",
+  "/using-packages.html#bind-environment": "using-npm-packages.html#bind-environment",
+  "/using-packages.html#wrap-async": "using-npm-packages.html#wrap-async",
+  "/using-packages.html#promises": "using-npm-packages.html#promises",
+  "/using-packages.html#overriding-packages": "writing-npm-packages.html#overriding-npm-packages",
+  "/using-packages.html#npm-overriding": "writing-npm-packages.html#overriding-npm-packages",
+  "/using-packages.html#atmosphere-overriding": "writing-atmosphere-packages.html#overriding-atmosphere-packages",
+  "/using-packages.html#npm-shrinkpack": "using-npm-packages.html#npm-shrinkpack",
+  "/writing-packages.html": "writing-atmosphere-packages.html",
+  "/writing-packages.html#npm-vs-atmosphere": "atmosphere-vs-npm.html",
+  "/writing-packages.html#creating-npm": "writing-npm-packages.html",
+  "/writing-packages.html#including-in-app": "writing-npm-packages.html#including-in-app",
+  "/writing-packages.html#publishing-npm": "writing--packages.html#publishing-npm",
+  "/writing-packages.html#creating": "writing-atmosphere-packages.html",
+  "/writing-packages.html#adding-files": "writing-atmosphere-packages.html#adding-files",
+  "/writing-packages.html#adding-javascript": "writing-atmosphere-packages.html#adding-javascript",
+  "/writing-packages.html#adding-css": "writing-atmosphere-packages.html#adding-css",
+  "/writing-packages.html#adding-style": "writing-atmosphere-packages.html#adding-style",
+  "/writing-packages.html#adding-assests": "writing-atmosphere-packages.html#adding-assets",
+  "/writing-packages.html#exporting": "writing-atmosphere-packages.html#exporting",
+  "/writing-packages.html#dependencies": "writing-atmosphere-packages.html#dependencies",
+  "/writing-packages.html#atmosphere-dependencies": "writing-atmosphere--packages.html#atmosphere-dependencies",
+  "/writing-packages.html#meteor-version-dependencies": "writing-atmosphere-packages.html#meteor-version-dependencies",
+  "/writing-packages.html#version-constraints": "writing-atmosphere-packages.html#version-constraints",
+  "/writing-packages.html#npm-dependencies": "writing-atmosphere-packages.html#npm-dependencies",
+  "/writing-packages.html#peer-npm-dependencies": "writing-atmosphere-packages.html#peer-npm-dependencies",
+  "/writing-packages.html#cordova-plugins": "writing-atmosphere-packages.html#cordova-plugins",
+  "/writing-packages.html#testing": "writing-atmosphere-packages.html#testing",
+  "/writing-packages.html#testing-with-peer-dependencies": "writing-atmosphere-packages.html#testing-with-peer-dependencies",
+  "/writing-packages.html#local-vs-published": "writing-atmosphere-packages.html#local-vs-published",
+  "/writing-packages.html#build-plugins": "build-tool.html#build-plugins",
+  "/writing-packages.html#types-of-build-plugins": "build-tool.html#types-of-build-plugins",
+  "/writing-packages.html#writing-build-plugins": "build-tool.html#writing-build-plugins",
+  "/writing-packages.html#caching-build-plugins": "build-tool.html#caching-build-plugins",
+  "/testing.html#simple-unit-test": "testing.html#simple-blaze-unit-test"
+};
+
+        function redirect() {
+          // Support redirects of the form /path#hash
+          var locationKey = location.pathname + location.hash;
+          if (REDIRECTS[locationKey]) {
+            location.replace(location.origin + '/' + REDIRECTS[locationKey]);
+          }
+
+          // Support redirects of the form #hash (works for any path)
+          var hashKey = location.hash;
+          if (REDIRECTS[hashKey]) {
+            location.replace(location.origin + '/' + REDIRECTS[hashKey]);
+          }
+        }
+
+        // Redirect now
+        redirect();
+
+        // Redirect on hash change
+        window.onhashchange = redirect;
+      
+    </script>
+  </body>
+</html>

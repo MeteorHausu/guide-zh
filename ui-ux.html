@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Basic -->
+    <title>用户界面 | Meteor 指南 中译本</title>
+    <meta name="description" content="构建用户界面的一些通用建议。无论你使用什么界面渲染技术，这些建议都适用。">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="../images/favicon.png" sizes="16x16 32x32 64x64">
+
+    <!-- Social -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://guide-zh.ourmeteor.com">
+    <meta property="og:title" content="用户界面 | Meteor 指南 中译本">
+    <meta property="og:description" content="构建用户界面的一些通用建议。无论你使用什么界面渲染技术，这些建议都适用。">
+    <meta property="og:image" content="">
+    <meta name="twitter:card" content="summary_image_large">
+    <meta name="twitter:site" content="@meteor">
+    <meta name="twitter:title" content="用户界面 | Meteor 指南 中译本">
+    <meta name="twitter:description" content="构建用户界面的一些通用建议。无论你使用什么界面渲染技术，这些建议都适用。">
+    <meta name="twitter:image" content="">
+
+    <!-- Misc -->
+    <meta name="google-site-verification" content="" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body class="">
+    
+
+<div class="sidebar">
+  <div class="panel">
+    <div class="panel-item logo">
+      <a href="http://www.meteor.com/developers" title="Meteor Developers" target=_new >
+        <img src="../images/icon-white.svg" alt="Meteor Developers">
+        <span>Meteor Developers</span>
+      </a>
+    </div>
+    
+      <div class="panel-item "">
+        <a class="" href="http://www.meteor.com/tutorials" target=_new >
+          <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><g fill="#112B49"><circle cx="80.001" cy="80" r="3"/><path d="M75.73 85.723c.193-.183.316-.437.316-.723 0-.553-.447-1-1-1-.278 0-.528.114-.71.297l-.004-.004-50.9 50.875c-.18.18-.29.43-.29.707-.002.553.445 1 .998 1 .276 0 .526-.112.708-.293l50.883-50.86zM84.235 74.4c-.18.183-.292.433-.292.71 0 .552.446 1 1 1 .275 0 .525-.113.707-.294l50.87-50.89c.204-.184.34-.442.34-.74 0-.552-.448-1-1-1-.276 0-.526.113-.707.294l-.01-.01L84.236 74.4zM136.583 135.184L85.65 84.23c-.182-.18-.432-.293-.708-.293-.552 0-1 .447-1 1 0 .278.114.528.297.71l50.927 50.95c.18.18.43.293.708.293.553 0 1-.447 1-1 0-.276-.11-.525-.292-.706zM111.19 152.602l-.003-.005-.002-.004-27.552-66.507h-.002c-.15-.362-.505-.617-.922-.617-.552 0-1 .446-1 1 0 .135.028.263.077.38v.002l.005.012 27.552 66.504c.15.362.507.617.924.617.553 0 1-.447 1-1 0-.136-.03-.265-.077-.383zM48.873 7.384L76.435 73.93h.002c.15.362.505.617.922.617.552 0 1-.447 1-1 0-.136-.03-.264-.078-.382h.003L50.72 6.616c-.15-.362-.506-.617-.923-.617-.552 0-1 .447-1 1 0 .136.03.265.078.383h-.002zM152.55 48.844h-.002L86.092 76.422c-.36.15-.617.507-.617.924 0 .553.446 1 1 1 .135 0 .265-.028.383-.077L153.32 50.69c.363-.15.618-.507.618-.924 0-.553-.447-1-1-1-.136 0-.265.028-.383.077h-.005zM7.41 111.136h.002l66.492-27.54c.36-.15.616-.507.616-.924 0-.553-.447-1-1-1-.136 0-.264.028-.382.077v-.002l-.004.002c-.002 0-.004 0-.006.002L6.638 109.29c-.36.15-.615.507-.615.924 0 .553.446 1 1 1 .135 0 .264-.028.382-.077h.004zM159 79H87c-.552 0-1 .448-1 1 0 .554.447 1 1 1h72c.553 0 1-.447 1-1s-.447-1-1-1zM23.435 24.85l50.897 50.897.008-.008c.182.18.43.29.707.29.553 0 1-.446 1-1 0-.296-.135-.555-.34-.737L24.85 23.433c-.183-.18-.433-.292-.71-.292-.55 0-.998.448-.998 1 0 .277.11.528.293.71zM6.618 50.657v.002l66.51 27.54c.003 0 .005 0 .007.002l.004.002c.117.048.245.076.38.076.554 0 1-.447 1-1 0-.417-.254-.772-.616-.923v-.002L7.392 48.813H7.39l-.005-.003c-.118-.047-.247-.076-.383-.076-.552 0-1 .447-1 1 0 .417.256.773.618.923zM153.383 109.28l-66.52-27.53-.006-.002c-.118-.048-.248-.076-.384-.076-.552 0-1 .447-1 1 0 .417.256.773.62.923l66.513 27.528c.003 0 .005 0 .007.002l.004.002c.118.048.246.076.382.076.552 0 1-.447 1-1 0-.417-.256-.772-.617-.923zM80 74c.553 0 1-.447 1-1V1c0-.553-.447-1-1-1-.552 0-1 .447-1 1v72c0 .553.447 1 1 1zM80 86c-.552 0-1 .447-1 1v72c0 .553.447 1 1 1s1-.447 1-1V87c0-.553-.447-1-1-1zM77.36 85.47c-.417 0-.772.254-.923.616l-27.564 66.53.002.002c-.05.117-.077.246-.077.382 0 .553.446 1 1 1 .416 0 .772-.255.922-.618h.002L78.28 86.86v-.004l.003-.005c.048-.117.076-.246.076-.382 0-.552-.448-1-1-1zM82.708 74.547c.417 0 .772-.255.923-.618h.003l27.56-66.547h-.004c.048-.12.076-.247.076-.383 0-.553-.447-1-1-1-.416 0-.772.255-.922.618h-.002l-27.56 66.546h.004c-.05.12-.077.247-.077.383-.002.553.445 1 .998 1zM74 80c0-.552-.446-1-1-1H1c-.552 0-1 .447-1 1 0 .553.447 1 1 1h72c.554 0 1-.446 1-1z"/></g></svg>
+          <span>教程</span>
+        </a>
+      </div>
+    
+      <div class="panel-item active"">
+        <a class="" href="http://guide.meteor.com"  >
+          <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><path fill="#BDA671" d="M80 1.988c43.01 0 78 34.99 78 78s-34.99 78-78 78-78-34.99-78-78 34.99-78 78-78m0-2c-44.183 0-80 35.817-80 80s35.817 80 80 80 80-35.817 80-80-35.817-80-80-80z"/><path fill="#BDA671" d="M126.454 33.545l-37.93 54.98-54.98 37.93 37.93-54.98 54.98-37.93m0-2c-.395 0-.79.116-1.135.354L70.336 69.826c-.2.138-.373.312-.51.51l-37.93 54.98c-.548.796-.45 1.868.232 2.55.386.388.898.587 1.414.587.395 0 .79-.116 1.135-.354l54.98-37.93c.2-.137.373-.31.51-.51l37.93-54.98c.548-.795.45-1.867-.232-2.55-.387-.386-.9-.585-1.414-.585z"/><circle fill="#BDA671" cx="79.999" cy="79.999" r="2.999"/><path fill="#BDA671" d="M135.477 50.182c-.02-.036-.04-.05-.06-.045-.173-.303-.485-.516-.858-.516-.553 0-1 .448-1 1 0 .21.078.394.188.554l-.02.007C138.358 59.766 141 69.57 141 79.99c0 33.636-27.364 61-61 61-10.42 0-20.232-2.634-28.82-7.26l-.005.02c-.144-.08-.3-.14-.478-.14-.552 0-1 .448-1 1 0 .336.176.618.43.8-.016.012-.034.025-.03.027 8.896 4.81 19.078 7.552 29.904 7.552 34.795 0 63-28.206 63-63 0-10.79-2.735-20.93-7.523-29.805zM109.65 24.47c-.002-.02.004-.04-.025-.056-8.83-4.727-18.908-7.426-29.625-7.426-34.794 0-63 28.206-63 63 0 10.79 2.73 20.935 7.514 29.81.005.01.012.004.018.01.17.312.488.532.87.532.552 0 1-.447 1-1 0-.197-.073-.37-.17-.525l.04-.002C21.642 100.223 19 90.41 19 79.988c0-33.636 27.364-61 61-61 10.4 0 20.185 2.634 28.757 7.248.02.01.036.02.055.028.116.047.24.075.37.075.554 0 1-.448 1-1 .002-.382-.22-.7-.533-.87z"/></svg>
+          <span>指南</span>
+        </a>
+      </div>
+    
+      <div class="panel-item "">
+        <a class="" href="http://docs.meteor.com"  >
+          <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><path fill="#DE4F4F" d="M35.6 30.167v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .553-.447 1-1 1H35.6v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .553-.447 1-1 1H35.6v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .55-.447 1-1 1H35.6v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .55-.447 1-1 1H35.6v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .55-.447 1-1 1H35.6v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .55-.447 1-1 1H35.6v5.375h89.8c.553 0 1 .447 1 1v7.375c0 .55-.447 1-1 1H35.6v5.375H80c.552 0 1 .447 1 1v10.873c1.162.413 2 1.51 2 2.816 0 1.657-1.343 3-3 3s-3-1.343-3-3c0-1.305.837-2.402 2-2.815v-9.873H34.6c-.552 0-1-.45-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.45-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.45-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.45-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.45-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.447-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.447-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.447-1-1v-7.375c0-.553.448-1 1-1h89.8v-5.375H34.6c-.552 0-1-.447-1-1s.448-1 1-1h90.8c.553 0 1 .447 1 1v7.375c0 .553-.447 1-1 1H35.6zM138 6.564H22c-1.104 0-2 .896-2 2v144c0 1.104.896 2 2 2h48.995c.258 0 .516-.097.712-.293.39-.39.39-1.022 0-1.413-.195-.195-.45-.293-.707-.293H22v-144h116v144H89.006c-.258 0-.517.097-.713.293-.39.39-.39 1.023 0 1.414.196.198.455.294.713.293H138c1.104 0 2-.895 2-2v-144c0-1.103-.896-2-2-2z"/></svg>
+          <span>API 文档</span>
+        </a>
+      </div>
+    
+      <div class="panel-item "">
+        <a class="" href="https://forums.meteor.com/" target=_new >
+          <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><path fill="#333" d="M60.025 17.72c7.396 0 14.914 1.424 22.172 4.43 29.594 12.258 43.648 46.188 31.39 75.782-9.25 22.334-30.843 35.812-53.6 35.812-4.694 0-9.437-.574-14.132-1.76L32.44 142.277 30.23 125.51C5.908 111.003-4.74 80.48 6.418 53.538 15.67 31.204 37.266 17.72 60.025 17.72m0-2c-24.363 0-46.13 14.545-55.455 37.053-5.547 13.394-6.06 28.33-1.447 42.052 4.465 13.276 13.414 24.57 25.252 31.896l2.082 15.82c.092.708.557 1.31 1.217 1.585.246.104.506.152.766.152.434 0 .86-.142 1.217-.412l12.656-9.713c4.482 1.055 9.076 1.59 13.674 1.59 24.36 0 46.126-14.543 55.447-37.047 6.135-14.807 6.135-31.115.002-45.922C109.3 37.966 97.77 26.433 82.963 20.3c-7.34-3.04-15.06-4.58-22.938-4.58zM92.69 133.9c.165-.443.614-.683 1.064-.623l.004-.024c5.18.558 10.343.396 15.365-.414v2.034c-5.13.796-10.4.942-15.69.356l.002-.02c-.052-.01-.105-.006-.158-.023-.517-.193-.78-.768-.586-1.287z"/><path fill="#333" d="M100.877 133.604c4.41-.065 8.86-.633 13.268-1.746l13.416 10.295 2.208-16.77c24.324-14.505 34.976-45.03 23.814-71.97-9.248-22.33-30.832-35.81-53.584-35.82v.02c-2.072-.002-4.154.096-6.238.32l-.004-.024c-.45.058-.9-.18-1.064-.625-.194-.518.068-1.093.586-1.286.054-.02.107-.015.158-.026l-.002-.02c2.19-.24 4.377-.348 6.553-.35v-.01c24.36.004 46.12 14.545 55.443 37.054 5.55 13.393 6.062 28.327 1.447 42.05-4.465 13.28-13.414 24.57-25.252 31.897l-2.082 15.818c-.092.71-.557 1.312-1.217 1.586-.246.103-.506.15-.766.15-.435 0-.86-.14-1.218-.412l-12.655-9.713c-4.2.988-8.502 1.502-12.812 1.564l.002-1.986z"/><circle fill="#333" cx="60.019" cy="77" r="3.001"/><circle fill="#333" cx="76.018" cy="77" r="3"/><circle fill="#333" cx="44.019" cy="77" r="3.001"/></svg>
+
+          <span>论坛</span>
+        </a>
+      </div>
+    
+  </div>
+
+  <div class="sidebar-content">
+    <div class="topcap">
+      <span class="title-sidebar">Meteor 指南 中译本</span>
+      
+        <span class="select version-sidebar nochrome">
+          <select class="version-select">
+            
+              <option value="v1.4">1.4</option>
+            
+              <option value="v1.3">1.3</option>
+            
+              <option value="v1.2">1.2</option>
+            
+          </select>
+        </span>
+      
+    </div>
+
+    
+    <div class="wrapper-search">
+      <div class="input-symbol small round">
+        <input type="text" placeholder="Search 官方指南" id="desktop-search-input" />
+        <span class="icon-search"></span>
+      </div>
+      <div class="wrapper-desktop-search-results"></div>
+    </div>
+
+    
+
+    <ul class="toc">
+      
+        <li>
+          
+          <ul class="list-toc">
+            
+              
+              <li class="item-toc ">
+                <a href="index.html" class="sidebar-link ">
+                  <span>介绍</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="code-style.html" class="sidebar-link ">
+                  <span>编码风格</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="structure.html" class="sidebar-link ">
+                  <span>Application Structure</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="1.4-migration.html" class="sidebar-link ">
+                  <span>迁移到 Meteor 1.4</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="1.3-migration.html" class="sidebar-link ">
+                  <span>Migrating to Meteor 1.3</span>
+                </a>
+              </li>
+            
+          </ul>
+        </li>
+      
+        <li>
+          
+            <div class="heading-toc">数据</div>
+          
+          <ul class="list-toc">
+            
+              
+              <li class="item-toc ">
+                <a href="collections.html" class="sidebar-link ">
+                  <span>数据集与数据结构</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="data-loading.html" class="sidebar-link ">
+                  <span>Publications and Data Loading</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="methods.html" class="sidebar-link ">
+                  <span>Method</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="accounts.html" class="sidebar-link ">
+                  <span>Users and Accounts</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="testing.html" class="sidebar-link ">
+                  <span>Testing</span>
+                </a>
+              </li>
+            
+          </ul>
+        </li>
+      
+        <li>
+          
+            <div class="heading-toc">视图</div>
+          
+          <ul class="list-toc">
+            
+              
+              <li class="item-toc ">
+                <a href="routing.html" class="sidebar-link ">
+                  <span>URL 和路由</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc  current">
+                <a href="" class="sidebar-link  current">
+                  <span>用户界面</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="blaze.html" class="sidebar-link ">
+                  <span>Blaze</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="react.html" class="sidebar-link ">
+                  <span>React</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="angular.html" class="sidebar-link ">
+                  <span>Angular</span>
+                </a>
+              </li>
+            
+          </ul>
+        </li>
+      
+        <li>
+          
+            <div class="heading-toc">构建</div>
+          
+          <ul class="list-toc">
+            
+              
+              <li class="item-toc ">
+                <a href="atmosphere-vs-npm.html" class="sidebar-link ">
+                  <span>Atmosphere vs. npm</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="using-atmosphere-packages.html" class="sidebar-link ">
+                  <span>Using Atmosphere Packages</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="writing-atmosphere-packages.html" class="sidebar-link ">
+                  <span>Writing Atmosphere Packages</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="using-npm-packages.html" class="sidebar-link ">
+                  <span>使用 npm 包</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="writing-npm-packages.html" class="sidebar-link ">
+                  <span>Writing npm Packages</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="mobile.html" class="sidebar-link ">
+                  <span>Mobile</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="build-tool.html" class="sidebar-link ">
+                  <span>Build System</span>
+                </a>
+              </li>
+            
+          </ul>
+        </li>
+      
+        <li>
+          
+            <div class="heading-toc">生产环境</div>
+          
+          <ul class="list-toc">
+            
+              
+              <li class="item-toc ">
+                <a href="security.html" class="sidebar-link ">
+                  <span>Security</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="deployment.html" class="sidebar-link ">
+                  <span>Deployment and Monitoring</span>
+                </a>
+              </li>
+            
+          </ul>
+        </li>
+      
+        <li>
+          
+            <div class="heading-toc">有关本指南</div>
+          
+          <ul class="list-toc">
+            
+              
+              <li class="item-toc ">
+                <a href="CONTRIBUTING.html" class="sidebar-link ">
+                  <span>Contribution Guidelines</span>
+                </a>
+              </li>
+            
+              
+              <li class="item-toc ">
+                <a href="CHANGELOG.html" class="sidebar-link ">
+                  <span>Changelog</span>
+                </a>
+              </li>
+            
+          </ul>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="nav dark">
+  <div class="nav-group">
+    <div class="nav-item">
+      <span class="js-sidebar-toggle">
+        <span class="icon-menu"></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="center-wrapper">
+    <img src="../images/logo-coralspace.svg" alt="Meteor 指南 中译本"/>
+    <div>官方指南</div>
+  </div>
+
+  
+  <div class="nav-group right">
+    <div class="nav-item">
+      <span class="js-search-toggle">
+        <span class="icon-search"></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="nav-search">
+    <div class="input-symbol">
+      <input type="text" placeholder="Search 官方指南" id="mobile-search-input"/>
+      <span class="icon-search"></span>
+    </div>
+
+    <div class="nav-group right">
+      <div class="nav-item">
+        <span class="js-search-toggle">
+          <span class="icon-close"></span>
+        </span>
+      </div>
+    </div>
+    
+    <div class="wrapper-mobile-search-results"></div>
+  </div>
+  
+</div>
+
+<div class="content">
+  <div class="content-wrapper">
+    <div class="header-content">
+      <h1 class="title-page">用户界面</h1>
+      
+        <div class="subtitle-page">构建用户界面的一些通用建议。无论你使用什么界面渲染技术，这些建议都适用。</div>
+      
+
+      <div class="page-actions">
+        <div class="actions-group">
+          <a class="btn primary small round lowercase" href="https://github.com/ourmeteor/guide-zh/tree/master/content/ui-ux.md" target="_blank"><span class="icon-github"></span> <span>Edit on GitHub</span></a>
+          
+            <a class="btn tertiary small round lowercase" href="https://forums.meteor.com/t/19665"><span class="icon-comment"></span> <span>Discuss</span></a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="document-formatting">
+      <p>读完本章后，你将学到：</p>
+<ol>
+<li>如何使用任意用户界面框架来构建可复用的客户端组件。</li>
+<li>如何构建样式指南来帮助你可视化地测试这些可复用组件。</li>
+<li>如何在 Meteor 中高效地构建高性能组件。</li>
+<li>如何构建可维护、可扩展的用户组建。</li>
+<li>如何构建可适配于不同数据源的组件。</li>
+<li>如何使用动画来让用户可以时刻感知变化。</li>
+</ol>
+<h2 id="view-layers">视图层</h2>
+
+<p>Meteor 官方支持三种用户界面 （UI） 渲染库：<a href="blaze.html">Blaze</a>、<a href="react.html">React</a> 和 <a href="http://www.angular-meteor.com" target="_blank" rel="external">Angular</a>。Blaze 是 Meteor 于 2011 年发布的时候，作为其中一个部分创造出来的。React 由 Facebook 于 2013 年创造。而 Angular 则是由 Google 于 2010 年创造。他们都已经被成功应用于大型产品级应用中。Blaze 是其中最易学的，并且拥有最多的 Meteor 全栈包，但 React 和 Angular 则发展得更加健全，并且拥有更大的社区。</p>
+<h3 id="syntax">语法</h3>
+
+<ul>
+<li>Blaze 易于学习。它使用了一种类似于 <a href="http://handlebarsjs.com" target="_blank" rel="external">Handlebars</a> 的模板语法，在你的 HTML 文件中到处使用诸如 <code>{{#if}}</code> 和 <code>{{#each}}</code> 等逻辑代码，而模板函数和基于 CSS 选择器的事件映射则被写在配套的 JavaScript 文件中。</li>
+<li>React 使用 <a href="https://facebook.github.io/react/docs/jsx-in-depth.html" target="_blank" rel="external">JSX</a> 语法，让你可以使用 JavaScript 来编写 HTML 代码。虽然它没有像其他库那样对逻辑和视图进行分离，但它却拥有最强的灵活性。模板函数和事件处理器作为 HTML 的一部分被定义在相同的文件中，这让读者非常容易理解组件的各部分是如何被组织在一起的。</li>
+<li>Angular 则在 HTML 中使用<a href="https://angular.io/docs/ts/latest/guide/cheatsheet.html" target="_blank" rel="external">特殊的属性语法</a>来处理逻辑和事件。模板辅助函数和相关事件被写在对应的 JavaScript 文件中，然后用户可以在 HTML 属性中通过名字来调用它们。</li>
+<li>React 和 Angular 强调了一种更好的组件结构，这使得开发大型应用更加容易。（当然，你也可以<a href="blaze.html#reusable-components">按照约定</a>，或使用  <a href="http://components.meteorapp.com/" target="_blank" rel="external">Blaze Components</a> 或 <a href="https://viewmodel.org/" target="_blank" rel="external">ViewModel</a> 等包来以组件化的方式进行 Blaze 开发。</li>
+</ul>
+<h3 id="community">社区</h3>
+
+<ul>
+<li>Blaze 在 Atmosphere 上拥有许多 Meteor 全栈包，例如 <a href="https://atmospherejs.com/useraccounts/core" target="_blank" rel="external"><code>useraccounts:core</code></a> 和 <a href="https://atmospherejs.com/aldeed/autoform" target="_blank" rel="external"><code>aldeed:autoform</code></a>。</li>
+<li>React 在 Github 上有 4.2 万个 stars，在 npm 上有 1.3 万个包。</li>
+<li>Angluar 在 Github 上有 1.2 万个 stars，在 npm 上有 4 千个包。</li>
+</ul>
+<blockquote>
+<p>译注：在 Github 上，用户可以为不同的项目点亮 star 以表示喜欢或支持，因此，stars 数量越高，代表这个项目越受欢迎。作为对比参考，Meteor 现在有 3.4 万个 stars，而 Bootstrap 有 9.7 万个 stars。</p>
+</blockquote>
+<h3 id="performance">性能</h3>
+
+<ul>
+<li>解决方案不同，渲染性能也是大相径庭。上述所有三种库在渲染简单应用时都非常快速，但在渲染更加复杂的应用时，他们可能会耗费较多时间。</li>
+<li>Angular 和 React 相比于 Blaze 做了更多性能优化工作，因此在通常情况下他们表现得更高。然而，在某些情况下，Blaze 则做得更好（例如在一个变化的游标上使用 <code>{{#each}}</code>）。</li>
+<li>根据一份 <a href="http://info.meteor.com/blog/comparing-performance-of-blaze-react-angular-meteor-and-angular-2-with-meteor" target="_blank" rel="external">跑分调查</a> 显示，目前的排名从高到低依次是：Angular2 &gt; React &gt; Angular1 &gt; Blaze。</li>
+</ul>
+<h3 id="mobile">移动应用</h3>
+
+<ul>
+<li><strong>Cordova</strong><ul>
+<li>所有三种库都可以在 Cordova 网页视图中良好运作，因此，你可以选择其中任意一个库并配套使用其它移动 CSS 库，例如 Ionic。</li>
+<li>目前最先进的移动网页框架是 <a href="http://ionicframework.com/docs/v2/" target="_blank" rel="external">Ionic 2</a>，它使用 Angular 2。</li>
+<li>Ionic 1 使用 Angular 1， 但这里同样有 <a href="http://meteoric-doc.com/" target="_blank" rel="external">Blaze</a> 和 <a href="http://reactionic.github.io/" target="_blank" rel="external">React</a> 的移植版。</li>
+<li>另一个好选择是 <a href="https://onsen.io/v2/" target="_blank" rel="external">Onsen UI</a>，它有一个 <a href="https://onsen.io/v2/docs/guide/react/" target="_blank" rel="external">React 版</a>。</li>
+</ul>
+</li>
+<li><strong>原生应用</strong><ul>
+<li>任何原生 iOS 或 Android 应用都可以通过 <a href="https://www.meteor.com/ddp" target="_blank" rel="external">DDP</a> 和一个 Meteor 服务器进行连接。对于 iOS 应用， 你可以使用 <a href="https://github.com/martijnwalraven/meteor-ios" target="_blank" rel="external"><code>meteor-ios</code></a> 框架。</li>
+<li>你可以使用 <a href="https://facebook.github.io/react-native/" target="_blank" rel="external">React Native</a> 来以 JavaScript 编写原生客户端应用。想了解更多关于如何在 Meteor 中使用 React Native，参考<a href="https://github.com/spencercarli/react-native-meteor-index" target="_blank" rel="external">这里</a>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="components">UI 组件</h2>
+
+<p>无论你使用什么视图层，这里有一些模式可以帮助你构建易于理解、测试和维护的用户界面。如同模块化等通用模式，这些模式旨在使你的 UI 元素的接口更加清晰并且避免使用那些会绕开这些已知接口的技术。</p>
+<p>在这篇文章中，我们把你的用户界面中的元素称为「组件」。虽然在某些系统中，你可能把它们称为「模板」，但你最好把它们看作某种更加类似于组件的东西，因为它们有 API 和内部逻辑，而不像模板那样只有一大堆 HTML。</p>
+<p>那么首先，我们先思考一下两种非常有用的组件分类，「可复用」和「智能」：</p>
+<h3 id="reusable-components">可复用组件</h3>
+
+<p>一个「可复用」的组件是这样一个组件，它在渲染时不依赖任何外部环境，仅依赖直接输入（Blaze 中的<em>模板参数</em>或 React 中的 <em>props</em> ）和内部状态进行渲染。</p>
+<p>特别地，在 Meteor 应用中，这意味着一个组件不会从全局数据源中直接获取数据——例如数据集（Collections）、数据囤（Stores）、路由器（routers）、用户数据（user data）或其他类似的地方。例如，在 Todos 示例应用中，<code>Lists_show</code> 模板从参数接收要渲染的 list 和这个 list 中的 todos，而并没有直接去 <code>Todos</code> 或 <code>Lists</code> 数据集中进行查询。</p>
+<p>可复用组件用许多优势：</p>
+<ol>
+<li><p>容易理解——你不需要了解数据在全局数据囤中如何变化，只需要知道组件参数如何变化就可以了。</p>
+</li>
+<li><p>容易测试——你不需要在意他们的渲染环境，只需要提供正确的参数即可。</p>
+</li>
+<li><p>容易构建样式指南——正如我们即将在<a href="#styleguides">「组件样式指南」章节</a>中看到那样，在创建样式指南时，一个纯净的环境将极大地简化我们的工作。</p>
+</li>
+<li><p>在不同的环境中，你能够很确切地知道你需要向它们提供什么依赖。</p>
+<p>这里还有一种更加严格的可复用组件——「纯」组件——它没有任何内部状态。例如，在 Todos 应用中，<code>Todos_item</code> 模板仅仅根据它的参数来决定如何进行渲染。纯组件比起其它可复用组件更加容易理解和测试，因此在可能的情况下，尽量使用纯组件。</p>
+</li>
+</ol>
+<h3 id="global-stores">全局数据囤</h3>
+
+<p>那么，哪些是你应该在可复用组件中避免使用的全局数据囤呢？的确有那么一些。Meteor 是为应用开发速度进行优化的，因此，你可以全局地访问许多东西。这对于构建「智能」组件（下面会说到）是十分方便的，然而，你需要在可复用组件中避免使用这些数据源：</p>
+<ul>
+<li>你的数据集，包括 <code>Meteor.users</code>,</li>
+<li>账户信息，例如 <code>Meteor.user()</code> 和 <code>Meteor.loggingIn（）</code></li>
+<li>当前路由信息</li>
+<li>其他类型的客户端数据囤（更多请参考<a href="data-loading.html#stores">「数据加载」章节</a>）</li>
+</ul>
+<h3 id="smart-components">智能组件</h3>
+
+<p>虽然，应用中的绝大部分组件应该是可复用的，但仍需要有某种方式将数据传给他们。这正是「智能组件」的职责所在。这些组件通常负责以下事情：</p>
+<ol>
+<li>订阅数据</li>
+<li>从这些 subscriptions 中获取数据</li>
+<li>从数据囤中获取全局客户端状态——例如路由器、账户系统以及你自己的数据或状态中心</li>
+</ol>
+<p>理想情况下，一个智能组件一旦汇集好了所需数据，就将它们传递给可复用子组件来进行渲染。除了一个或多个可复用子组件，智能组件通常不会渲染其他东西。这使得你能够很容易地在测试中分离渲染和数据加载。</p>
+<p>一个典型的智能组件就是「页面」组件。当你访问一个 URL 时，路由器就会将你引导向一个页面组件。这个组件通常会做上述三种事情并将结果作为参数传递给子组件。在 Todos 示例应用中，<code>listShowPage</code> 正是这样一个组件，它的 HTML 模板非常简单：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"Lists_show_page"</span>&gt;</span></div><div class="line">  &#123;&#123;#each listId in listIdArray&#125;&#125;</div><div class="line">    &#123;&#123;&gt; Lists_show (listArgs listId)&#125;&#125;</div><div class="line">  &#123;&#123;else&#125;&#125;</div><div class="line">    &#123;&#123;&gt; App_notFound&#125;&#125;</div><div class="line">  &#123;&#123;/each&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>它的 JavaScript 负责订阅和获取哪些需要被 <code>Lists_show</code> 模板使用的数据：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">Template.Lists_show_page.onCreated(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.getListId = () =&gt; FlowRouter.getParam(<span class="string">'_id'</span>);</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.autorun(() =&gt; &#123;</div><div class="line">    <span class="keyword">this</span>.subscribe(<span class="string">'todos.inList'</span>, <span class="keyword">this</span>.getListId());</div><div class="line">  &#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">Template.Lists_show_page.helpers(&#123;</div><div class="line">  <span class="comment">// 我们在只有一项的数组中使用 #each，因此，当lists发生改变时，「list」模板会被删除，</span></div><div class="line">  <span class="comment">// 而一个新的副本将被添加，这对于我们需要的动画来说非常重要。</span></div><div class="line">  listIdArray() &#123;</div><div class="line">    <span class="keyword">const</span> instance = Template.instance();</div><div class="line">    <span class="keyword">const</span> listId = instance.getListId();</div><div class="line">    <span class="keyword">return</span> Lists.findOne(listId) ? [listId] : [];</div><div class="line">  &#125;,</div><div class="line">  listArgs(listId) &#123;</div><div class="line">    <span class="keyword">const</span> instance = Template.instance();</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      todosReady: instance.subscriptionsReady(),</div><div class="line">      <span class="comment">// 为了对数据响应进行控制，我们将「list」（它包含了整个 list 以及所有的字段）作为一个函数</span></div><div class="line">      <span class="comment">// 进行传递。当你勾选一个 todo 项时，`list.incompleteCount` 将会改变。如果我们不这样做，</span></div><div class="line">      <span class="comment">// 无论你勾选了哪一项，整个 list 都会重新渲染。通过将 list 的数据响应隔离在关注它的区域，</span></div><div class="line">      <span class="comment">// 我们可以阻止这样的事发生。</span></div><div class="line">      list() &#123;</div><div class="line">        <span class="keyword">return</span> Lists.findOne(listId);</div><div class="line">      &#125;,</div><div class="line">      <span class="comment">// 由于在查询 list 时只设置了 `_id` 字段，我们没有建立对 `list.incompleteCount` 的依赖，</span></div><div class="line">      <span class="comment">// 因此避免了在它发生改变时重新渲染整个 todos</span></div><div class="line">      todos: Lists.findOne(listId, &#123;fields: &#123;_id: <span class="literal">true</span>&#125;&#125;).todos()</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="styleguides">可视化地测试可复用组件</h2>
+
+<p>可复用组件的一个好处是，你可以在任何地方渲染他们，因为他们不依赖复杂的环境。当它们被用在组件展列、调试应用时，这一点就非常有用了。在这些应用中，你可以展列、可视化和测试你的 UI 组件。</p>
+<p><img src="images/chromatic-how-it-works.png"></p>
+<p>一个组件展列器会做两件事情：</p>
+<ol>
+<li><b>展列</b>你的应用组件以便能轻易地找到他们。</li>
+<li>使用开发者定义的状态和伪数据来<b>渲染</b>这些组件。</li>
+</ol>
+<p>例如，在 Galaxy 中，我们使用一个被称作 Chromatic 的组件展列器来一次一个或一次全部的形式来渲染组件。</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/SRXvg-_Suo0" frameborder="0" allowfullscreen></iframe>
+
+<p>Chromatic 帮助我们快速构建复杂组件。通常，在一个大型应用中，仅仅通过「使用」这个应用的方式，我们很难到达一个组件的特定状态。例如，当两个相同的应用同时被部署并运行时，Galaxy 中的一个组件可进入一个复杂的状态。使用 Chromatic，我们可以在组件级别定义这种状态并独立于应用逻辑对它进行测试。</p>
+<p>输入 <code>meteor add mdg:chromatic</code>，你便可以在你的 Meteor + React 应用中使用 <a href="https://github.com/meteor/chromatic" target="_blank" rel="external">Chromatic component explorer</a>。使用 React 构建的类似项目包括 Phil Cockfield 的 <a href="http://www.uiharness.com/" target="_blank" rel="external">UI Harness</a> 和 Arunoda Susiripala 的 <a href="https://github.com/kadirahq/react-storybook" target="_blank" rel="external">React Storybook</a>。</p>
+<h2 id="ui-patterns">用户界面模式</h2>
+
+<p>在构建 Meteor 应用的用户界面时，有一些模式非常有用。</p>
+<h3 id="i18n">国际化</h3>
+
+<p>国际化（i18n）是一种构建 UI 的过程，它使你能够很容易地在应用中渲染另一种语言的文字。Meteor 的包生态系统包括了能与你的前端框架无缝集成的国际化选项。</p>
+<h4 id="places-to-i18n">需要翻译的地方</h4>
+
+<p>最好仔细思考一下，在你的系统中哪些地方有用户可读的字符串，并确保你是在合理地使用 i18n 来生成这些字符串。在这一节中，我们会大致看到如何在不同的地方使用 <a href="#tap-i18n-js"><code>tap:i18n</code></a> 和 <a href="#universe-i18n"><code>universe:i18n</code></a> 进行具体处理。</p>
+<ol>
+<li><strong>HTML 模板及组件。</strong> UI 组件中用户可见的所有内容——这是最明显的地方。</li>
+<li><strong>客户端 JavaScript 消息。</strong> 通知或其他在客户端生成并展示给用户的消息，都应当被翻译。</li>
+<li><strong>服务端 JavaScript 消息和电子邮件。</strong> 服务端生成的消息或错误有时经常被用户看到。显而易见之处包括电子邮件和其他服务端生成的消息，例如移动推送通知。但微妙之处在于如何对方法调用的返回值和错误消息进行处理。错误通常都以一种更加通用的形式在连接上传递，并在到达客户端后才被翻译。</li>
+<li><strong>数据库中的数据。</strong> 另一个你可能想进行翻译的地方是数据库中那些用户实际产生的数据。例如，如果你在运行一个 wiki 应用，你可能想有一种机制让 wiki 页面能够被翻译成各种语言。如果实现这一点得根据你应用的具体情况来确定。</li>
+</ol>
+<h4 id="tap-i18n-js">在 JavaScript 中使用 <code>tap:i18n</code></h4>
+
+<p>在 Meteor 中，<a href="https://atmospherejs.com/tap/i18n" target="_blank" rel="external">超棒的 <code>tap:i18n</code> 包</a>提供了一种构造翻译并应用于组件和前端代码的 API。</p>
+<p>通过 <code>meteor add tap:i18n</code> 在你的应用中安装 <code>tap:i18n</code> 之后，你便可以使用它。然后，我们需要为我们的默认语言（<code>en</code> 即英语）添加一个 JSON 翻译文件——我们可以将它放在 <code>i18n/en.i18n.json</code>。一旦我们完成这些，我们便可以在 JavaScript 代码中导入并使用 <code>TAPi18n.__()</code> 函数来获取字符串或键的翻译。</p>
+<p>例如，对于 Todos 示例应用中的错误，我们就创建了一个 <code>errors</code> 模块，对于所有可能在方法中被抛出的错误，它让我们能够很容易地 alert 一个经过翻译的版本：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; TAPi18n &#125; <span class="keyword">from</span> <span class="string">'meteor/tap:i18n'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> displayError = (error) =&gt;  &#123;</div><div class="line">  <span class="keyword">if</span> (error) &#123;</div><div class="line">    <span class="comment">// 这里其实最好不要 alert 这个错误，而应该用某种更加巧妙的方式提示用户</span></div><div class="line">    alert(TAPi18n.__(error.error));</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><code>error.error</code> 字段是 <code>Meteor.Error</code> 构造函数的第一个参数，我们可以使用它在应用中唯一确定所有错误。然后，我们可以在 <code>i18n/en.i18n.json</code> 中定义这些错误的英文版本：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    "lists": &#123;</div><div class="line">    "makePrivate": &#123;</div><div class="line">      "notLoggedIn": "Must be logged in to make private lists.",</div><div class="line">      "lastPublicList": "Cannot make the last public list private."</div><div class="line">    &#125;,</div><div class="line">    "makePublic": &#123;</div><div class="line">    ...</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="tap-i18n-blaze">在 Blaze 中使用 <code>tap:i18n</code></h4>
+
+<p>我们也可以很容易地在 Blaze 模板中使用各种翻译。为了做到这一点，我们可以使用 <code>{{_ }}</code> helper。在 Todos 应用中，我们使用希望输出的实际英文字符串作为 i18n 的键，这意味着我们不需要提供一个英文翻译版本，虽然在现实应用中你最好一开始就准备好这些键。</p>
+<p>例如，在 <code>app-not-found.html</code> 文件中：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"App_notFound"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"page not-found"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">nav</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"nav-group"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"js-menu nav-item"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"icon-list-unordered"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content-scrollable"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrapper-message"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"title-message"</span>&gt;</span>&#123;&#123;_ 'Page not found'&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="tap-i18n-changing-language">切换语言</h4>
+
+<p>你可以调用 <code>TAPi18n.setLanguage(fn)</code> 来改变语言。 <code>fn</code> 是一个（可能是响应式的）函数，它返回当前语言。例如，你可以这样写</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 一个用于表示当前语言的数据囤</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> CurrentLanguage = <span class="keyword">new</span> ReactiveVar(<span class="string">'en'</span>);</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">import</span> CurrentLanguage <span class="keyword">from</span> <span class="string">'../stores/current-language.js'</span>;</div><div class="line">TAPi18n.setLanguage(() =&gt; &#123;</div><div class="line">  CurrentLanguage.get();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>然后，在你的 UI 中的某个地方，当用户选择了一个语言，你可以 <code>CurrentLanguage.set(&#39;es&#39;)</code></p>
+<h4 id="universe-i18n">在 React 中使用 <code>universe:i18n</code></h4>
+
+<p>对于基于 React 的应用来说，除了 <code>tap:i18n</code>，还有另一个选择，即 <a href="https://atmospherejs.com/universe/i18n" target="_blank" rel="external"><code>universe:18n</code> 包</a>。<code>universe:i18n</code>使用了与 <code>tap:i18n</code> 类似的概念和约定，但除此之外，它还提供了一个开箱即用的 React 组件，并且去掉了 <code>tap:i18n</code> 中对于 Meteor 的 <code>templating</code> 和 <code>jquery</code> 的依赖。<code>universe:i18n</code> 为使用 <code>ES2015</code> 模块的 Meteor React 应用而生，但它完全可以被运用于没有 React 或模块的应用。</p>
+<h4 id="universe-i18n-js">在 JS 中使用 <code>universe:i18n</code></h4>
+
+<p>首先，运行 <code>meteor add universe:i18n</code> 以在应用中添加这个包。然后，在你的应用中添加一个 <code>JSON</code> 格式的英文（<code>en-US</code>）翻译文件，并命名为 <code>en-us.i18n.json</code>。翻译文件能够通过文件名或 <code>{&quot;_locale&quot;: &quot;en-US&quot;}</code> 这个 JSON 属性而被识别。除了 JSON，这个包同样还支持 <code>YAML</code> 文件格式。</p>
+<p>如果你的应用使用 <code>ES2015</code> 模块，并使用 <code>client/main.js</code> 和 <code>server/main.js</code> 来作为应用的逻辑入口，那么你可以在这里导入刚才定义的翻译文件。现在，<code>i18n.__()</code> 函数可以识别你传入的键了。</p>
+<p>浏览一下<a href="#tap-i18n-js">上面</a>的 <code>tap:i18n</code> 例子，使用 <code>universe:i18n</code> 之后，现在我们的 <code>displayError</code> 函数看起来大致是这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> i18n <span class="keyword">from</span> <span class="string">'meteor/universe:i18n'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> displayError = (error) =&gt;  &#123;</div><div class="line">  <span class="keyword">if</span> (error) &#123;</div><div class="line">    alert(i18n.__(error.error));</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>可以调用 <code>i18n.setLocale(&#39;en-US&#39;)</code> 来改变用户的语言设置。除了使用随客户端应用一起打包的 JSON 翻译文件之外，<code>universe:i18n</code> 还可以通过 method 来获取更多的翻译。</p>
+<h4 id="universe-i18n-react">在 React 组件中使用 <code>universe:i18n</code></h4>
+
+<p>只需要简单地使用 <code>i18n.createComponent()</code> 函数创建一个组件，并将你在翻译文件中定义的键传递给它，你就可以向你的 React 组件中添加响应式的 i81n 行内元素了。这里有一个例子，展示了一个封装了 i18n 翻译的简单组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"><span class="keyword">import</span> i18n <span class="keyword">from</span> <span class="string">'meteor/universe:i18n'</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> T = i18n.createComponent();</div><div class="line"></div><div class="line"><span class="comment">// 由于我们的 en-us.i18n.json 文件中定义了键值对 &#123; "hello": "hello world!" &#125;</span></div><div class="line"><span class="comment">// 这里将显示 'hello world!'</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> Welcome = (props) =&gt; <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></div><div class="line">  <span class="tag">&lt;<span class="name">T</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">T</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> Welcome;</div></pre></td></tr></table></figure>
+<p>请参考 <a href="https://atmospherejs.com/universe/i18n" target="_blank" rel="external"><code>universe:i18n</code></a> 的文档以了解更多配置和选项。</p>
+<h3 id="event-handling">事件处理</h3>
+
+<p>你的 UI 中很大一部分都参与响应用户事件，你应当采取一些措施来保证应用在面对用户的快速输入时不会拖后腿。应用在响应用户行为时产生卡顿是最显著的性能问题之一。</p>
+<h4 id="throttling-method-calls">限制用户行为产生的方法调用频率</h4>
+
+<p>通常，用户行为会或多或少导致数据库中的数据产生变化。然而，你千万不能过于频繁地造成数据变化。例如，如果你想在用户输入文字时立刻保存这些文字，你应当确保每次方法调用之间至少间隔几百毫秒。</p>
+<p>如果你不这样做，你将遭遇全面的性能崩溃：用户的网络连接中将泛滥着海量的微小数据变动信息，你的 UI 会在你每一次敲击键盘时进行更新，这不仅可能会导致客户端性能下降，还会使你的数据库承受过多的写操作。</p>
+<blockquote>
+<p>译注：对于大部分数据库来说，写操作相对于读操作来说都更加复杂，且性能开销更大。如果数据库承受了过多的写操作，可能影响整个数据库的性能，进而导致该应用上的所有用户体验下降，甚者无法响应。</p>
+</blockquote>
+<p>为了限制写操作，一个常用的方式是使用 underscore 的 <a href="http://underscorejs.org/#throttle" target="_blank" rel="external"><code>.throttle()</code></a> 或 <a href="http://underscorejs.org/#debounce" target="_blank" rel="external"><code>.debounce()</code></a> 函数。例如，在 Todos 示例应用中，我们将用户输入产生写操作的频率限制在每次间隔 300ms：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;</div><div class="line">  updateText,</div><div class="line">&#125; <span class="keyword">from</span> <span class="string">'../../api/todos/methods.js'</span>;</div><div class="line"></div><div class="line"></div><div class="line">Template.Todos_item.events(&#123;</div><div class="line">  <span class="comment">// 当用户输入时更新 item 上的文字，但是限制这个事件的发生频率以确保我们不会向</span></div><div class="line">  <span class="comment">// 服务器滥发更新请求（至少每隔 300ms 才能发送一次）</span></div><div class="line">  <span class="string">'keyup input[type=text]'</span>: _.throttle(<span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">    updateText.call(&#123;</div><div class="line">      todoId: <span class="keyword">this</span>.todo._id,</div><div class="line">      newText: event.target.value</div><div class="line">    &#125;, (err) =&gt; &#123;</div><div class="line">      err &amp;&amp; alert(err.error);</div><div class="line">    &#125;);</div><div class="line">  &#125;, <span class="number">300</span>)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>通常，如果你不介意用户在执行一系列动作的过程中就产生相应的伴随事件（例如，在本例中，如果你不介意用户还没有停止输入，更新请求就在不断产生），使用 <code>.throttle()</code> 就好了。否则，你可以使用 <code>.debounce()</code> 函数，这样的话，只有在用户停止输入超过 300ms 之后，更新事件才会触发。</p>
+<p><img src="images/throttle-vs-debounce.png"></p>
+<h4 id="limiting-re-rendering">限制重新渲染</h4>
+
+<p>用户每一次输入时，即使你不打算向数据库保存一次数据，有时你仍然希望在内存数据囤里更新一下数据。如果更新这个数据囤会造成很多 UI 改变，当你过于频繁地更新它时，你会感受到糟糕的体验并丢失输入。在这种情况下，你可以像我们上面限制方法调用一样，通过 <code>.throttle</code> 限制 UI 重新渲染。你也可以使用 <code>.debounce()</code> 来确保当用户停止输入时才触发改变。</p>
+<h2 id="ux-patterns">用户体验模式</h2>
+
+<p>用户体验，简称 UX（User Experience），指用户与应用交互时的体验与感受。这里有一些 Meteor 应用的经典 UX 模式值得我们一探究竟。这其中有很多模式与用户与应用交互时的数据加载方式密切相关，因此，在我们的<a href="data-loading.html#patterns">「数据加载」章节</a>中有许多类似类似的小节描述了如何使用 Meteor 的 publications 和 subscriptions 来实现这些模式。</p>
+<h3 id="subscription-readiness">订阅就绪</h3>
+
+<p>当你在 Meteor 中订阅数据时，这些数据总不能一下子就变到客户端了。通常，在数据到达前，根据网络状况的不同，用户可能需要等上几百毫秒甚至几秒钟。当用户第一次打开应用，或在展示完全不同的数据的页面直接切换时，这种等待显得尤为突出。</p>
+<p>这里有一些 UX 技巧可以用来处理这种等待间隙。最简单的方法就是，当你在等待数据时（一个页面通常会打开好几个 subscriptions），展示一个通用的「加载中」页面来代替当前页面。例如，在 Todos 实例应用中，我们等待公共 lists 和 用户的私有 lists 加载完毕之后才实际渲染这个页面：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#if Template.subscriptionsReady&#125;&#125;</div><div class="line">  &#123;&#123;&gt; Template.dynamic template=main&#125;&#125;</div><div class="line">&#123;&#123;else&#125;&#125;</div><div class="line">  &#123;&#123;&gt; App_loading&#125;&#125;</div><div class="line">&#123;&#123;/if&#125;&#125;</div></pre></td></tr></table></figure>
+<p>此处，我们使用 Blaze 的 <code>Template.subscriptionsReady</code> 来实现这个效果再适合不过了。它会等到当前组件请求的所有 subscriptions 均准备就绪之后才会变成 true。</p>
+<h4 id="per-component-loading">组件级加载状态</h4>
+
+<p>通常，除了那些还在等待数据的区域外，尽快并且尽可能多地展示页面往往会带来比较好的用户体验。因此，这里有一个不错的模式叫做「组件级加载」。我们在 Todos 示例应用中运用了这个模式——当你访问 list 页面时，我们立刻渲染了 list 的基本信息，比如它的标题和可见性设置，然后，当这个 list 的 todos 数据还在加载时，我们用了一个加载状态来占位。</p>
+<p><img src="images/todos-loading.png"></p>
+<p>为了实现这一点，我们将 todos 数据的订阅就绪状态从发起订阅的智能组件（<code>listShowPage</code>）那里传递给了负责渲染数据的可复用组件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;&gt; Lists_show todosReady=Template.subscriptionsReady list=list&#125;&#125;</div></pre></td></tr></table></figure>
+<p>然后，我们便可以根据这个状态来判断应该在可复用组件中渲染什么：</p>
+<p> (<code>listShow</code>):</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#if todosReady&#125;&#125;</div><div class="line">  &#123;&#123;#with list._id&#125;&#125;</div><div class="line">    &#123;&#123;#each todo in (todos this)&#125;&#125;</div><div class="line">      &#123;&#123;&gt; Todos_item (todoArgs todo)&#125;&#125;</div><div class="line">    &#123;&#123;else&#125;&#125;</div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrapper-message"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"title-message"</span>&gt;</span>No tasks here<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"subtitle-message"</span>&gt;</span>Add new tasks using the field above<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    &#123;&#123;/each&#125;&#125;</div><div class="line">  &#123;&#123;/with&#125;&#125;</div><div class="line">&#123;&#123;else&#125;&#125;</div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrapper-message"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"title-message"</span>&gt;</span>Loading tasks...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">&#123;&#123;/if&#125;&#125;</div></pre></td></tr></table></figure>
+<h4 id="loading-placeholders">展示占位符</h4>
+
+<p>你可以进一步优化上述 UI：在等待数据加载时，你可以展示一个占位符。这是一个由 Facebook 率先使用的模式，它让用户能更加实在地感受到即将展示的是怎样的内容。如果你让占位符保持和最终内容同样的尺寸，它还能防止数据加载时部分 UI 到处移动。</p>
+<p>例如，在 Glalaxy 网站上，当你在等待应用日志加载时，你会看到一个加载状态，它预示了你即将看到的内容：</p>
+<p><img src="images/galaxy-placeholders.png"></p>
+<h4 id="styleguide-and-loading">使用样式指南来验证加载状态</h4>
+
+<p>由于加载状态是一种暂态，并且在开发环境下，由于 subscriptions 通常瞬时完成，导致我们很难注意到它，因此可视化地处理加载状态通常十分困难。</p>
+<p>这也正是为什么我们说，可以到达组件任何状态的<a href="#styleguides">组件样式指南</a>是一种非常有用的东西。由于我们的可复用组件 <code>Lists_show</code> 并不关心 subscription，仅仅根据 <code>todosReady</code>参数来决定渲染什么内容，因此，使它在样式指南中展示加载状态是非常容易的。</p>
+<h3 id="pagination">分页</h3>
+
+<p>在我们的<a href="data-loading.html#pagination">「数据加载」章节</a>中，我们讨论了一种通过「无限滚动」订阅来实现的分页模式。当用户滚动到页面底部时，这种订阅便会多加载一页内容。那么，又有哪些 UX 模式被用于使用这些数据并向用户展示进展状况呢？这是一个有趣的问题。</p>
+<h4 id="list-component">列表组件</h4>
+
+<p>让我们来思考一下更通用的列表组件。为了有一个具体的例子，我们可以参考 Todos 示例应用中的 todo 列表。虽然现在还不行，但在未来版本的应用中，我们将可以分页浏览任意一列 todos。</p>
+<p>这个列表可能进入如下状态：</p>
+<ol>
+<li>刚开始加载，还没有任何数据。</li>
+<li>展示一部分条目，还有更多条目可展示。</li>
+<li>展示一部分条目，还有更多条目正在加载中。</li>
+<li>展示<em>所有</em>条目，并且已经没有更多可展示的条目了。</li>
+<li><em>不</em>展示任何条目，因为没有可展示的条目。</li>
+</ol>
+<p>那么，这样一个组件需要怎样的参数来区分这五种状态呢？让我们考虑一种通用模式，只要我们能提供下列信息，那么它就能良好地工作：</p>
+<ul>
+<li><code>count</code>——所有条目的总数。</li>
+<li><code>countReady</code>——一个布尔值用于表示我们是否知道条目总数（注意，条目总数也是我们需要加载的数据）</li>
+<li><code>requested</code>——我们已请求的条目数。</li>
+<li><code>items</code>——我们已经获取到的条目。</li>
+</ul>
+<p>基于上述条件，我们可以区分当前列表组件处于何种状态：</p>
+<ol>
+<li><code>countReady</code> 为假，或 <code>count &gt; 0</code> 且 <code>items</code> 为空。（这实际上是两种状态，但无需在视觉上有所区分）</li>
+<li><code>items.length === requested &amp;&amp; requested &lt; count</code></li>
+<li><code>0 &lt; items.length &lt; requested</code></li>
+<li><code>items.length === requested &amp;&amp; count &gt; 0</code></li>
+<li><code>count === 0</code></li>
+</ol>
+<p>你看，虽然情况有点复杂，但各种状态仍然是完全由参数组合所决定的，因此是完全可测的。一个组件样式指南极大地辅助了我们去方便地观察所有这些状态！在 Galaxy，我们在组件样式指南中展示了每一个应用的每一个状态，因此，我们能够确保他们都能如预期一般工作并正确显示：</p>
+<image src="images/galaxy-styleguide-list.png">
+
+<h4 id="pagination-controller">分页「控制器」模式</h4>
+
+<p>列表组件让我们很好地认识到拆分智能组件和可复用组件的好处。我们已经看到，正确地渲染和观察一个列表的所有可能状态不是一件容易的事，但通过使用一个以参数来接收所有必要信息的可复用列表组件，我们可以极大地简化这件事情。</p>
+<p>然而，我们还需要去订阅这个列表的条目以及数量，然后在某处获取这些数据。一个合理的方法是使用智能包裹组件（类似于 MVC 中的「控制器」），它的任务就是去订阅并获取相关数据。</p>
+<p>在 Todos 示例应用中，我们已经有了一个针对列表的包裹组件，它会与路由器进行沟通并设置 subscriptions。通过简单的扩展，这个组件便可以了解分页情况：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> PAGE_SIZE = <span class="number">10</span>;</div><div class="line"></div><div class="line">Template.Lists_show_page.onCreated(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// 我们使用内部状态来保存我们已经请求的条目的数量</span></div><div class="line">  <span class="keyword">this</span>.state = <span class="keyword">new</span> ReactiveDict();</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.getListId = () =&gt; FlowRouter.getParam(<span class="string">'_id'</span>);</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.autorun(() =&gt; &#123;</div><div class="line">    <span class="comment">// 当 `requested` 状态增涨时，我们重新订阅更多的 todos</span></div><div class="line">    <span class="keyword">this</span>.subscribe(<span class="string">'List.todos'</span>, <span class="keyword">this</span>.getListId(), <span class="keyword">this</span>.state.get(<span class="string">'requested'</span>));</div><div class="line">    <span class="keyword">this</span>.countSub = <span class="keyword">this</span>.subscribe(<span class="string">'Lists.todoCount'</span>, <span class="keyword">this</span>.getListId());</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  <span class="comment">// `onNextPage` 函数用于增涨 `requested` 状态变量。它被传入 listShow 子组件，</span></div><div class="line">  <span class="comment">// 在用户到达所有可见的 todos 的，它将被触发</span></div><div class="line">  <span class="keyword">this</span>.onNextPage = () =&gt; &#123;</div><div class="line">    <span class="keyword">this</span>.state.set(<span class="string">'requested'</span>, <span class="keyword">this</span>.state.get(<span class="string">'requested'</span>) + PAGE_SIZE);</div><div class="line">  &#125;;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">Template.Lists_show_page.helpers(&#123;</div><div class="line">  listArgs(listId) &#123;</div><div class="line">    <span class="keyword">const</span> instance = Template.instance();</div><div class="line">    <span class="keyword">const</span> list = Lists.findOne(listId);</div><div class="line">    <span class="keyword">const</span> requested = instance.state.get(<span class="string">'requested'</span>);</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      list,</div><div class="line">      todos: list.todos(&#123;&#125;, &#123;limit: requested&#125;),</div><div class="line">      requested,</div><div class="line">      countReady: instance.countSub.ready(),</div><div class="line">      count: Counts.get(<span class="string">`list/todoCount<span class="subst">$&#123;listId&#125;</span>`</span>),</div><div class="line">      onNextPage: instance.onNextPage</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="patterns-for-new-data">展示新数据的 UX 模式</h4>
+
+<p>如何让用户注意到新的信息（例如列表中的数据发生变化）？这对于实时系统（例如 Meteor）的开发者来说，是一个既有趣又充满挑战的 UX 问题。正如 <a href="http://blog.percolatestudio.com/design/design-for-realtime/" target="_blank" rel="external">Dominic</a> 指出，仅仅尽可能快地更新内容可能不是一个好办法，因为这可能让用户忽略掉内容变化，或困惑于到底发生了什么。</p>
+<p>一个解决方案是为列表变化添加<em>动画效果</em>（我们将在<a href="#animation">动画章节</a>中看到），但在某些时候，这可能并不是最好的办法。例如，若用户正在读一系列评论，在他们读完之前，可能根本不想看到任何变化。</p>
+<p>在这种情况下，我们也可以在不更新主视 UI，仅仅告知用户这里有了新的变化。然而，在 Meteor 这样默认实时的系统里，要阻止数据变化对 UI 产生影响并不容易。</p>
+<p>感谢智能组件与可复用组件的分离，现在要做到这一点是可能的。由于可复用组件仅仅渲染它得到的数据，因此我们可以让智能组件来控制哪些数据该传递下去。我们可以使用一个 <a href="collections.html#local-collections"><em>local collection</em></a> 来保存需要现在渲染的数据（而不是客户端收到的所有可渲染数据，译注），然后，当用户请求更新时，才将其他数据传入这个 collection：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">Template.Lists_show_page.onCreated(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line"></div><div class="line">  <span class="comment">// 这个变量保存的 todos 是用户可以在屏幕上实际看到的那一部分（而Todos 集合保存的则是</span></div><div class="line">  <span class="comment">// 实际存在的所有 todos）</span></div><div class="line">  <span class="keyword">this</span>.visibleTodos = <span class="keyword">new</span> Mongo.Collection(<span class="literal">null</span>);</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.getTodos = () =&gt; &#123;</div><div class="line">    <span class="keyword">const</span> list = Lists.findOne(<span class="keyword">this</span>.getListId());</div><div class="line">    <span class="keyword">return</span> list.todos(&#123;&#125;, &#123;limit: instance.state.get(<span class="string">'requested'</span>)&#125;);</div><div class="line">  &#125;;</div><div class="line">  <span class="comment">// 当用户调用这个函数时，我们应该同步可见的 todos 来表明这个世界的真实情况</span></div><div class="line">  <span class="keyword">this</span>.syncTodos = (todos) =&gt; &#123;</div><div class="line">    todos.forEach(todo =&gt; <span class="keyword">this</span>.visibleTodos.insert(todo));</div><div class="line">    <span class="keyword">this</span>.state.set(<span class="string">'hasChanges'</span>, <span class="literal">false</span>);</div><div class="line">  &#125;;</div><div class="line">  <span class="keyword">this</span>.onShowChanges = () =&gt; &#123;</div><div class="line">    <span class="keyword">this</span>.syncTodos(<span class="keyword">this</span>.getTodos());</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.autorun((computation) =&gt; &#123;</div><div class="line">    <span class="keyword">const</span> todos = <span class="keyword">this</span>.getTodos();</div><div class="line"></div><div class="line">    <span class="comment">// 当这个 autorun 重新运行时，这个 list 的 id 或 todos 一定发生了改变，</span></div><div class="line">    <span class="comment">// 这时，我们应该向用户标记一下以让他们知道这里有可以看到的新变化</span></div><div class="line">    <span class="keyword">if</span> (!computation.firstRun) &#123;</div><div class="line">      <span class="keyword">this</span>.state.set(<span class="string">'hasChanges'</span>, <span class="literal">true</span>);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">this</span>.syncTodos(todos);</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">Template.Lists_show_page.helpers(&#123;</div><div class="line">  listArgs(listId) &#123;</div><div class="line">    <span class="keyword">const</span> instance = Template.instance();</div><div class="line">    <span class="keyword">const</span> list = Lists.findOne(listId);</div><div class="line">    <span class="keyword">const</span> requested = instance.state.get(<span class="string">'requested'</span>);</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      list,</div><div class="line">      <span class="comment">// 我们在这里传递 *可见的* todos</span></div><div class="line">      todos: instance.visibleTodos.find(&#123;&#125;, &#123;limit: requested&#125;),</div><div class="line">      requested,</div><div class="line">      countReady: instance.countSub.ready(),</div><div class="line">      count: Counts.get(<span class="string">`list/todoCount<span class="subst">$&#123;listId&#125;</span>`</span>),</div><div class="line">      onNextPage: instance.onNextPage,</div><div class="line">      <span class="comment">// 这两个属性让用户能够感知到这里有可以查看的新变化，并允许他们查看</span></div><div class="line">      hasChanges: instance.state.get(<span class="string">'hasChanges'</span>),</div><div class="line">      onShowChanges:instance.onShowChanges</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>可复用子组件可以利用 <code>hasChagnes</code> 参数来决定它是否应该向用户显示某种弹出提示以表明这里有可查看的新变化，然后通过使用 <code>onShowChanges</code> 回调函数来使得这些变化被实际展示出来。</p>
+<h3 id="optimistic-ui">乐观 UI</h3>
+
+<p>比起其他框架，使用 Meteor 可以更加容易地实现一种很棒的 UX 模式——乐观 UI。乐观 UI 是一种在 UI 中展示用户自己造成的变化的过程。在这个过程中，变化不需要等待服务器确认成功便立刻被展示于客户端，这带来了一种不可思议的快速体验，因为用户不需要等待数据来回于客户端与服务器。由于在良好设计的应用中，大部分用户操作都会成功，让整个应用几乎都像这样保持乐观看起来是一种合理的选择。</p>
+<p>然而，并非<em>所有</em>情况下都应该保持乐观。有时候，我们可能确实想等待服务器响应。例如，当用户登录时，你<em>必须</em>等待服务器检查了密码正确之后才能让用户浏览你的网站。</p>
+<p>那么，什么时候该又什么时候不该等待服务器响应呢？这基本上取决于你有多乐观，或者说，操作有多大可能不会成功。在上述密码的例子中，你真的不能在客户端进行判断，因此你需要保守一些。在其他情况下，如果你很确信这个操作会成功，那么请继续读下去。</p>
+<p>例如，在 Todos 示例应用中，当我们创建一个新的列表时，这个列表基本上一定能创建成功，因此我们可以这样写代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; insert &#125; <span class="keyword">from</span> <span class="string">'../../api/lists/methods.js'</span>;</div><div class="line"></div><div class="line">Template.App_body.events(&#123;</div><div class="line">  <span class="string">'click .js-new-list'</span>() &#123;</div><div class="line">    <span class="keyword">const</span> listId = insert.call((err) =&gt; &#123;</div><div class="line">      <span class="keyword">if</span> (err) &#123;</div><div class="line">        <span class="comment">// 在这时，我们已经被跳转到新创建的 list 页面，但由于某种原因这个 list 并未被创建。</span></div><div class="line">        <span class="comment">// 虽然这不太可能发生，但我们最好能处理一下这种情况以防万一。</span></div><div class="line">        FlowRouter.go(<span class="string">'App.home'</span>);</div><div class="line">        alert(<span class="string">'Could not create list.'</span>);</div><div class="line">      &#125;</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    FlowRouter.go(<span class="string">'Lists.show'</span>, &#123; _id: listId &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>我们将 <code>FlowRouter.go(&#39;Lists.show&#39;)</code> 放在 Method 回调函数之外，这样它就能立刻执行。一开始，我们<em>模拟</em>执行了这个 method（它会在本地的 Minimongo 中创建一个新列表），然后直接跳转到这个列表页面。最后，当服务端返回结果时，它通常已经在服务端创建了一个一模一样的列表（用户甚至几乎不会注意到）。在某种不太可能的情况下，服务端调用失败，我们展示一个错误然后跳转回首页。</p>
+<p>我们注意到，客户端的模拟 method 返回的 <code>listId</code> 和服务端生成的一样，这是由于<a href="methods.html#consistent-id-generation">Meteor 通过某种方法生成 ID</a> 并确保它在客户端与服务端保持一致。</p>
+<h3 id="writes-in-progress">表明写入过程</h3>
+
+<p>有时，用户可能会想知道一个更新什么时候到达服务端。例如，在一个聊天应用中，我们通常会在聊天窗口中乐观地展示新发送的消息，但是表明它正处于「发送中」，直到服务端确认了数据写入。在 Meteor 中，我们很容易实现这一点，只需要修改一下 Method，让它在客户端执行一些不同的操作即可：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Messages.methods.insert = <span class="keyword">new</span> ValidatedMethod(&#123;</div><div class="line">  name: <span class="string">'Messages.methods.insert'</span>,</div><div class="line">  validate: <span class="keyword">new</span> SimpleSchema(&#123;</div><div class="line">    text: &#123;type: <span class="built_in">String</span>&#125;</div><div class="line">  &#125;).validator(),</div><div class="line">  run(message) &#123;</div><div class="line">    <span class="comment">// 在客户端的模拟方法中，我们添加一个额外的 pending 字段</span></div><div class="line">    <span class="comment">// 当服务端返回「真实的」数据时，这个字段就会被移除</span></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.isSimulation) &#123;</div><div class="line">      message.pending = <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Messages.insert(message);</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>当然，在这种场景下，服务端调用仍然可能会失败，你应该提前做好准备，并通过某种方式向用户表明这一点。</p>
+<h3 id="unexpected-failures">意外失败</h3>
+
+<p>在上面的例子中，我们已经看到了一些意料之外的失败情况。要去防御所有可能但是概率很小的错误，很难，也很低效。别担心，这里有一些模式可以用于拦截所有意料之外的失败。</p>
+<p>感谢 Meteor 对乐观 UI 的自动处理，当一个 method 意外失败时，客户端的乐观更新会被回滚，并且 Minimongo 数据库会最终进入和真实数据一致的状态。如果你使用 Minimongo 的数据进行渲染，用户会看到和真实状态一致的界面，当然，这可能不是他们所期待看到的那个样子。有时候，你在 Minimongo 之外还保存着一些状态，你可能需要对它们做一些手动更改来反映这种情况。在上面的例子中你也看到了，如果操作失败，我们需要更新路由器状态以跳转页面。</p>
+<p>然而，不加解释地将用户跳转到一个意料之外的状态是一种糟糕的 UX。在上面的例子中，我们使用了 <code>alert()</code>，虽然这是个糟糕的选择，但是它至少能完成任务。一个更好的方法是使用一个「暂显通知」来表明情况。它是一种「额外显示」的 UI 元素，通常浮在屏幕的右上角，以「某种」方式向用户表明发生了什么。这里有一个来自 Galaxy 的例子，注意在页面的右上角有一个暂显通知：</p>
+<p><img src="images/galaxy-flash-notification.png"></p>
+<h2 id="animation">动画</h2>
+
+<p>动画是一种在<em>一定时间内</em>平滑地而非立刻展示 UI 变化的过程。虽然，动画经常被视作「花边装饰」或纯粹的审美考虑，但实际上，正如我们在上面改变列表的例子中强调的那样，它扮演者重要的角色。在一个客户端互联的世界里，UI 的改变并非总是来自于当前用户的操作（例如，有时候其他用户的操作带来的数据改变会被推送到其他客户端并导致他们的 UI 发生改变），这时，如果立刻更改 UI，用户会很难弄清到底发生了什么。</p>
+<h3 id="animating-visiblity">为可见性变化添加动画效果</h3>
+
+<p>有哪些 UI 变化需要动画效果呢？这其中最基本的恐怕要数条目的出现与消失了。在 Blaze 中，我们可以使用 <a href="https://atmospherejs.com/percolate/momentum" target="_blank" rel="external"><code>percolate:momentum</code> 包</a>来向这种状态变化添加一系列来自 <a href="http://julian.com/research/velocity/" target="_blank" rel="external"><code>velocity 动画库</code></a>的动画效果。</p>
+<p>在 Todos 示例应用中，list 的编辑状态变化就是一个很好的例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#momentum plugin="fade"&#125;&#125;</div><div class="line">  &#123;&#123;#if instance.state.get 'editing'&#125;&#125;</div><div class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"js-edit-form list-edit-form"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line">  &#123;&#123;else&#125;&#125;</div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"nav-group"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  &#123;&#123;/if&#125;&#125;</div><div class="line">&#123;&#123;/momentum&#125;&#125;</div></pre></td></tr></table></figure>
+<p>Momentum 会覆盖子 HTML 元素出现与消失的方式。在这个例子中，当 list 组件进入 <code>editing</code> 状态时，<code>.nav-group</code> 消失，而 <code>form</code> 出现。Momentum 负责保证所有条目都会淡出消失，使得这种变化显得更加明显。</p>
+<h3 id="animating-attributes">为属性变化添加动画效果</h3>
+
+<p>另一中常见的动画效果发生在元素属性变化的时候。例如，当你点击一个按钮的时候，它可能会改变颜色。使用 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CS_transitions" target="_blank" rel="external">CSS 过渡效果</a>可以很容易地实现这一类动画。例如，在 Todos 示例应用中，我们为链接的鼠标悬停状态添加了 CSS 过渡效果：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">a</span> &#123;</div><div class="line">  <span class="attribute">transition</span>: all <span class="number">200ms</span> ease-in;</div><div class="line">  <span class="attribute">color</span>: <span class="variable">@color-secondary</span>;</div><div class="line">  <span class="attribute">cursor</span>: pointer;</div><div class="line">  <span class="attribute">text-decoration</span>: none;</div><div class="line"></div><div class="line">  <span class="selector-tag">&amp;</span><span class="selector-pseudo">:hover</span> &#123; <span class="attribute">color</span>: darken(<span class="variable">@color-primary</span>, <span class="number">10%</span>); &#125;</div><div class="line">  <span class="selector-tag">&amp;</span><span class="selector-pseudo">:active</span> &#123; <span class="attribute">color</span>: <span class="variable">@color-well</span>; &#125;</div><div class="line">  <span class="selector-tag">&amp;</span><span class="selector-pseudo">:focus</span> &#123; <span class="attribute">outline</span>:none; &#125; <span class="comment">//removes FF dotted outline</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="animating-page-changes">为页面切换添加动画效果</h3>
+
+<p>最后，应用内页面切换也是经常需要添加动画效果的地方。特别是在移动端，这将给用户一种感觉，自己是如何在相互关联的页面之间跳转。可以使用与出现、消失动画效果类似的方案（类比于一个页面消失，另一个页面出现），但是这里有一些值得关注的坑：</p>
+<p>以 Todos 示例应用为例。类似地，这里我们在主布局模板中使用 Momentum 来为页面切换添加动画效果：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#momentum plugin="fade"&#125;&#125;</div><div class="line">  &#123;&#123;#if Template.subscriptionsReady&#125;&#125;</div><div class="line">    &#123;&#123;&gt; Template.dynamic template=main&#125;&#125;</div><div class="line">  &#123;&#123;else&#125;&#125;</div><div class="line">    &#123;&#123;&gt; App_loading&#125;&#125;</div><div class="line">  &#123;&#123;/if&#125;&#125;</div><div class="line">&#123;&#123;/momentum&#125;&#125;</div></pre></td></tr></table></figure>
+<p>这看起来似乎没什么问题，但实际上却有一个坑：有时，渲染系统更倾向于直接改变已经存在的组件而不想触发动画效果。例如，当你在不同的 lists 之间切换时，Blaze 会默认去尝试使用新的 <code>listId</code>（一个改变后的参数）来重新渲染 <code>Lists_show</code> 组件， 而非将旧的 list 扔掉再创建一个新的 list。从原则上来说，这是一项不错的优化，但是出于对动画效果的考虑，我们希望避免它发生。更具体地说，我们希望确保动画效果<em>只</em>在 <code>listId</code> 改变时生效，而不要在其他响应式改变发生时生效。</p>
+<p>在这个例子中，我们可以耍一点小花招来实现这一点（这里使用的方法仅适用于 Blaze，但你也可以在其他视图层中使用类似的技术）。这里的关键在于，<code>{{#each}}</code> helper 会区别对待字符串数组，当它发生改变时，它会完全重新渲染相关元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"Lists_show_page"</span>&gt;</span></div><div class="line">  &#123;&#123;#each listId in listIdArray&#125;&#125;</div><div class="line">    &#123;&#123;&gt; Lists_show (listArgs listId)&#125;&#125;</div><div class="line">  &#123;&#123;else&#125;&#125;</div><div class="line">    &#123;&#123;&gt; App_notFound&#125;&#125;</div><div class="line">  &#123;&#123;/each&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Template.Lists_show_page.helpers(&#123;</div><div class="line">  <span class="comment">// 我们在只有一项的数组中使用 #each，因此，当lists发生改变时，「list」模板会被删除，</span></div><div class="line">  <span class="comment">// 而一个新的副本将被添加，这对于我们需要的动画来说非常重要。</span></div><div class="line">  listIdArray() &#123;</div><div class="line">    <span class="keyword">const</span> instance = Template.instance();</div><div class="line">    <span class="keyword">const</span> listId = instance.getListId();</div><div class="line">    <span class="keyword">return</span> Lists.findOne(listId) ? [listId] : [];</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</image>
+    </div>
+  </div>
+
+  <div class="pagination">
+    <div class="content-wrapper">
+      
+      
+        <a class="link primary prev"
+          href="using-atmosphere-packages.html">
+          <span class="icon-arrow-left-alt"></span>
+          <span class="subtitle-pagination">Previous</span>
+          Using Atmosphere Packages
+        </a>
+      
+      
+        <a class="link primary next"
+          href="using-npm-packages.html">
+          <span class="subtitle-pagination">Next</span>
+          使用 npm 包
+          <span class="icon-arrow-right-alt"></span>
+        </a>
+      
+    </div>
+  </div>
+
+  <div class="github">
+    <a class="link tertiary " href="https://github.com/ourmeteor/guide-zh/tree/master/content/ui-ux.md" target="_blank">
+      <span class="icon-github"></span>Edit on GitHub</a>
+  </div>
+
+  
+    <div class="discourse-comments-wrapper content-wrapper">
+      <div id='discourse-comments'></div>
+    </div>
+
+    <script type="text/javascript">
+      DiscourseEmbed = { discourseUrl: 'http://forums.meteor.com/',
+                         topicId: 19665 };
+
+      (function() {
+        var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+        d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+      })();
+    </script>
+  
+</div>
+
+    <script src="/script/smooth-scroll.min.js"></script>
+    <script src="/script/main.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+    <script>
+      // nectar ninja
+      (function(){
+        var handle = '@meteorjs';
+        var a = document.createElement('script');
+        var m = document.getElementsByTagName('script')[0];
+        a.async = 1;
+        a.src = 'https://nectar.ninja/api/v1/' + handle.slice(1);
+        m.parentNode.insertBefore(a, m);
+      })();
+
+     
+      
+        // Segment Tracking
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+        analytics.load("zQx6cQifkTU79E3L0XAnmrOXP2A5bC6r");
+        analytics.page()
+        }}();
+      
+
+      // search box
+      
+
+        ['desktop', 'mobile'].forEach(function(type) {
+          var search = docsearch({
+            apiKey: 'bdf6b09d12024f6bae3631a0dfdd4a7f',
+            indexName: 'meteor_api_guide',
+            inputSelector: '#' + type + '-search-input',
+            autocompleteOptions: {
+              dropdownMenuContainer: '.wrapper-' + type + '-search-results',
+              debug: true
+            }
+          }).autocomplete;
+
+          var sidebar = document.querySelector('.sidebar-content');
+          search.on('autocomplete:opened', function() {
+            sidebar.classList.add('searching');
+          });
+          search.on('autocomplete:closed', function() {
+            sidebar.classList.remove('searching');
+          });
+          search.on('autocomplete:updated', function() {
+            if (search.val() === '') {
+              search.autocomplete.close();
+            }
+          });
+        });
+      
+
+      
+        var REDIRECTS = {
+  "/using-packages.html": "atmosphere-vs-npm.html",
+  "/using-packages.html#npm": "using-npm-packages.html",
+  "/using-packages.html#client-npm": "using-npm-packages.html#client-npm",
+  "/using-packages.html#installing-npm": "using-npm-packages.html#installing-npm",
+  "/using-packages.html#using-npm": "using-npm-packages.html#using-npm",
+  "/using-packages.html#npm-styles": "using-npm-packages.html#npm-styles",
+  "/using-packages.html#npm-shrinkwrap": "using-npm-packages.html#npm-shrinkwrap",
+  "/using-packages.html#atmosphere": "using-atmosphere-packages.html",
+  "/using-packages.html#atmosphere-searching": "using-atmosphere-packages.html#atmosphere-searching",
+  "/using-packages.html#atmosphere-naming": "using-atmosphere-packages.html#atmosphere-naming",
+  "/using-packages.html#installing-atmosphere": "using-atmosphere-packages.html#installing-atmosphere",
+  "/using-packages.html#using-atmosphere": "using-atmosphere-packages.html#using-atmosphere",
+  "/using-packages.html#importing-atmosphere-styles": "using-atmosphere-packages.html#importing-atmosphere-styles",
+  "/using-packages.html#peer-npm-dependencies": "using-atmosphere-packages.html#peer-npm-dependencies",
+  "/using-packages.html#package-namespacing": "using-atmosphere-packages.html#package-namespacing",
+  "/using-packages.html#async-callbacks": "using-npm-packages.html#async-callbacks",
+  "/using-packages.html#bind-environment": "using-npm-packages.html#bind-environment",
+  "/using-packages.html#wrap-async": "using-npm-packages.html#wrap-async",
+  "/using-packages.html#promises": "using-npm-packages.html#promises",
+  "/using-packages.html#overriding-packages": "writing-npm-packages.html#overriding-npm-packages",
+  "/using-packages.html#npm-overriding": "writing-npm-packages.html#overriding-npm-packages",
+  "/using-packages.html#atmosphere-overriding": "writing-atmosphere-packages.html#overriding-atmosphere-packages",
+  "/using-packages.html#npm-shrinkpack": "using-npm-packages.html#npm-shrinkpack",
+  "/writing-packages.html": "writing-atmosphere-packages.html",
+  "/writing-packages.html#npm-vs-atmosphere": "atmosphere-vs-npm.html",
+  "/writing-packages.html#creating-npm": "writing-npm-packages.html",
+  "/writing-packages.html#including-in-app": "writing-npm-packages.html#including-in-app",
+  "/writing-packages.html#publishing-npm": "writing--packages.html#publishing-npm",
+  "/writing-packages.html#creating": "writing-atmosphere-packages.html",
+  "/writing-packages.html#adding-files": "writing-atmosphere-packages.html#adding-files",
+  "/writing-packages.html#adding-javascript": "writing-atmosphere-packages.html#adding-javascript",
+  "/writing-packages.html#adding-css": "writing-atmosphere-packages.html#adding-css",
+  "/writing-packages.html#adding-style": "writing-atmosphere-packages.html#adding-style",
+  "/writing-packages.html#adding-assests": "writing-atmosphere-packages.html#adding-assets",
+  "/writing-packages.html#exporting": "writing-atmosphere-packages.html#exporting",
+  "/writing-packages.html#dependencies": "writing-atmosphere-packages.html#dependencies",
+  "/writing-packages.html#atmosphere-dependencies": "writing-atmosphere--packages.html#atmosphere-dependencies",
+  "/writing-packages.html#meteor-version-dependencies": "writing-atmosphere-packages.html#meteor-version-dependencies",
+  "/writing-packages.html#version-constraints": "writing-atmosphere-packages.html#version-constraints",
+  "/writing-packages.html#npm-dependencies": "writing-atmosphere-packages.html#npm-dependencies",
+  "/writing-packages.html#peer-npm-dependencies": "writing-atmosphere-packages.html#peer-npm-dependencies",
+  "/writing-packages.html#cordova-plugins": "writing-atmosphere-packages.html#cordova-plugins",
+  "/writing-packages.html#testing": "writing-atmosphere-packages.html#testing",
+  "/writing-packages.html#testing-with-peer-dependencies": "writing-atmosphere-packages.html#testing-with-peer-dependencies",
+  "/writing-packages.html#local-vs-published": "writing-atmosphere-packages.html#local-vs-published",
+  "/writing-packages.html#build-plugins": "build-tool.html#build-plugins",
+  "/writing-packages.html#types-of-build-plugins": "build-tool.html#types-of-build-plugins",
+  "/writing-packages.html#writing-build-plugins": "build-tool.html#writing-build-plugins",
+  "/writing-packages.html#caching-build-plugins": "build-tool.html#caching-build-plugins",
+  "/testing.html#simple-unit-test": "testing.html#simple-blaze-unit-test"
+};
+
+        function redirect() {
+          // Support redirects of the form /path#hash
+          var locationKey = location.pathname + location.hash;
+          if (REDIRECTS[locationKey]) {
+            location.replace(location.origin + '/' + REDIRECTS[locationKey]);
+          }
+
+          // Support redirects of the form #hash (works for any path)
+          var hashKey = location.hash;
+          if (REDIRECTS[hashKey]) {
+            location.replace(location.origin + '/' + REDIRECTS[hashKey]);
+          }
+        }
+
+        // Redirect now
+        redirect();
+
+        // Redirect on hash change
+        window.onhashchange = redirect;
+      
+    </script>
+  </body>
+</html>
